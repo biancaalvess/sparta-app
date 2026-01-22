@@ -1,22 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSparta } from '../context/SpartaContext'; // Importando do lugar certo
+import { useSparta } from '../context/SpartaContext'; 
 import { IMAGES } from '../constants/images';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  
-  // AQUI ESTÁ A MÁGICA: Buscamos user e meals do contexto, não das props
   const { user, meals } = useSparta();
   
-  // Evita tela preta: se o user ainda não carregou, mostra aviso simples
   if (!user) return <div className="p-10 text-white">Carregando Perfil...</div>;
 
   const totalCalories = meals.reduce((acc, m) => acc + (m.completed ? m.calories : 0), 0);
   const targetCalories = 2400;
 
   return (
-    <div className="bg-background-dark text-white min-h-screen relative pb-24 font-display">
+    // MUDANÇA AQUI: h-full e overflow-y-auto habilitam o scroll correto
+    <div className="bg-background-dark text-white h-full overflow-y-auto no-scrollbar relative pb-28 font-display">
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#1A1A1A]/95 backdrop-blur-sm border-b border-white/5">
         <div className="flex items-center p-4 pb-3 justify-between max-w-md mx-auto w-full">
           <div className="flex items-center gap-3">
@@ -106,6 +104,9 @@ const Dashboard: React.FC = () => {
             <p className="text-[10px] text-text-secondary mt-2 font-mono">Disciplina: <span className="text-white font-bold">90%</span></p>
           </div>
         </section>
+        
+        {/* Espaço extra no final para garantir que o último item não fique escondido atrás do menu */}
+        <div className="h-10"></div>
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 bg-[#1A1A1A] border-t border-white/5 pt-2 pb-6 px-6 z-50">

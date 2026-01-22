@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,9 +5,9 @@ const Subscription: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-background-dark min-h-screen flex flex-col items-center">
-      <div className="w-full max-w-md bg-background-dark min-h-screen flex flex-col relative overflow-x-hidden">
-        <header className="flex items-center px-4 py-4 justify-between bg-transparent z-10">
+    <div className="bg-background-dark h-full overflow-y-auto no-scrollbar flex flex-col items-center">
+      <div className="w-full max-w-md bg-background-dark min-h-full flex flex-col relative">
+        <header className="flex items-center px-4 py-4 justify-between bg-transparent z-10 sticky top-0 backdrop-blur-sm bg-background-dark/80">
           <button onClick={() => navigate('/dashboard')} className="text-white flex size-10 shrink-0 items-center justify-center rounded-lg hover:bg-white/5 transition-colors">
             <span className="material-symbols-outlined text-[24px]">arrow_back</span>
           </button>
