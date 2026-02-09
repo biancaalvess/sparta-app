@@ -11,7 +11,7 @@ import WorkoutOverview from './ui/modules/student/WorkoutOverview';
 import DailyDiet from './ui/modules/student/DailyDiet';
 
 // Profissional (Trainer) - Ajustado para o nome do arquivo na sua tree
-import { ProfessionalDashboard } from './ui/modules/professional/ProfessionalDashboard';
+import { TrainerDashboard as ProfessionalDashboard } from './ui/modules/professional/ProfessionalDashboard';
 
 // Admin
 import { AdminDashboard } from './ui/modules/admin/AdminDashboard';

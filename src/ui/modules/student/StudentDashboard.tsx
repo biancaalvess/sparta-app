@@ -42,89 +42,92 @@ export function StudentDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
-      <div className="bg-card border-b border-border p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl mb-1">Olá, Atleta! 💪</h1>
-            <p className="text-muted-foreground">Vamos dominar o dia</p>
+    <div className="min-h-screen bg-background pb-20 flex flex-col items-center">
+      {/* Container responsivo: centralizado em monitores, full width em mobile */}
+      <div className="w-full max-w-4xl">
+        {/* Header */}
+        <div className="bg-card border-b border-border p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-4 gap-3">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-2xl sm:text-3xl mb-1 truncate">Olá, Atleta! 💪</h1>
+              <p className="text-muted-foreground text-sm sm:text-base">Vamos dominar o dia</p>
+            </div>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate("/")}
+              className="shrink-0"
+            >
+              <User className="h-5 w-5 sm:h-6 sm:w-6" />
+            </Button>
           </div>
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => navigate("/")}
-          >
-            <User className="h-6 w-6" />
-          </Button>
+          
+          {/* Streak Counter */}
+          <div className="flex items-center gap-3 bg-gradient-to-r from-primary/10 to-transparent p-3 sm:p-4 rounded-lg border border-primary/20">
+            <div className="bg-primary/20 p-2 sm:p-3 rounded-full shrink-0">
+              <Flame className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs sm:text-sm text-muted-foreground">Sequência Atual</p>
+              <p className="text-xl sm:text-2xl font-bold text-primary">{currentStreak} dias</p>
+            </div>
+            <div className="shrink-0">
+              <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-primary/60" />
+            </div>
+          </div>
         </div>
-        
-        {/* Streak Counter */}
-        <div className="flex items-center gap-3 bg-gradient-to-r from-primary/10 to-transparent p-4 rounded-lg border border-primary/20">
-          <div className="bg-primary/20 p-3 rounded-full">
-            <Flame className="h-6 w-6 text-primary" />
-          </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Sequência Atual</p>
-            <p className="text-2xl font-bold text-primary">{currentStreak} dias</p>
-          </div>
-          <div className="ml-auto">
-            <Trophy className="h-8 w-8 text-primary/60" />
-          </div>
-        </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="p-6 space-y-6">
+        {/* Main Content */}
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Today's Workout Card */}
         <Card className="bg-card border-primary/30 overflow-hidden">
-          <div className="bg-gradient-to-br from-primary/20 to-transparent p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <Badge className="bg-primary text-primary-foreground mb-2">
+          <div className="bg-gradient-to-br from-primary/20 to-transparent p-4 sm:p-6">
+            <div className="flex items-start justify-between mb-4 gap-3">
+              <div className="min-w-0 flex-1">
+                <Badge className="bg-primary text-primary-foreground mb-2 text-xs">
                   TREINO DE HOJE
                 </Badge>
-                <h2 className="text-2xl mb-1">{todayWorkout.name}</h2>
-                <p className="text-muted-foreground">{todayWorkout.type}</p>
+                <h2 className="text-lg sm:text-2xl mb-1 break-words">{todayWorkout.name}</h2>
+                <p className="text-muted-foreground text-sm sm:text-base">{todayWorkout.type}</p>
               </div>
-              <Dumbbell className="h-12 w-12 text-primary/40" />
+              <Dumbbell className="h-10 w-10 sm:h-12 sm:w-12 text-primary/40 shrink-0" />
             </div>
             
-            <div className="flex gap-4 mb-6">
-              <div className="flex items-center gap-2 text-sm">
-                <TrendingUp className="h-4 w-4 text-primary" />
+            <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <TrendingUp className="h-4 w-4 text-primary shrink-0" />
                 <span>{todayWorkout.exercises} exercícios</span>
               </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Calendar className="h-4 w-4 text-primary" />
+              <div className="flex items-center gap-2 text-xs sm:text-sm">
+                <Calendar className="h-4 w-4 text-primary shrink-0" />
                 <span>{todayWorkout.duration}</span>
               </div>
             </div>
 
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-14"
+            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 sm:h-14 text-sm sm:text-base"
               onClick={() => navigate("/student/workout")}
             >
-              <PlayCircle className="mr-2 h-5 w-5" />
+              <PlayCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               INICIAR TREINO
             </Button>
           </div>
         </Card>
 
         {/* Daily Diet Progress */}
-        <Card className="bg-card p-6">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-primary/20 p-2 rounded-lg">
-              <ChefHat className="h-5 w-5 text-primary" />
+        <Card className="bg-card p-4 sm:p-6">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6">
+            <div className="bg-primary/20 p-2 rounded-lg shrink-0">
+              <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
             </div>
-            <h3 className="text-xl">Dieta de Hoje</h3>
+            <h3 className="text-lg sm:text-xl">Dieta de Hoje</h3>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5">
             {/* Calories */}
             <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Calorias</span>
-                <span className="text-sm text-muted-foreground">
+              <div className="flex justify-between mb-2 gap-2">
+                <span className="text-xs sm:text-sm font-medium">Calorias</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">
                   {macros.calories.current}/{macros.calories.target} {macros.calories.unit}
                 </span>
               </div>
@@ -136,9 +139,9 @@ export function StudentDashboard() {
 
             {/* Protein */}
             <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Proteína</span>
-                <span className="text-sm text-muted-foreground">
+              <div className="flex justify-between mb-2 gap-2">
+                <span className="text-xs sm:text-sm font-medium">Proteína</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">
                   {macros.protein.current}/{macros.protein.target} {macros.protein.unit}
                 </span>
               </div>
@@ -150,9 +153,9 @@ export function StudentDashboard() {
 
             {/* Carbs */}
             <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Carboidratos</span>
-                <span className="text-sm text-muted-foreground">
+              <div className="flex justify-between mb-2 gap-2">
+                <span className="text-xs sm:text-sm font-medium">Carboidratos</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">
                   {macros.carbs.current}/{macros.carbs.target} {macros.carbs.unit}
                 </span>
               </div>
@@ -164,9 +167,9 @@ export function StudentDashboard() {
 
             {/* Fats */}
             <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm font-medium">Gorduras</span>
-                <span className="text-sm text-muted-foreground">
+              <div className="flex justify-between mb-2 gap-2">
+                <span className="text-xs sm:text-sm font-medium">Gorduras</span>
+                <span className="text-xs sm:text-sm text-muted-foreground truncate">
                   {macros.fats.current}/{macros.fats.target} {macros.fats.unit}
                 </span>
               </div>
@@ -179,25 +182,25 @@ export function StudentDashboard() {
         </Card>
 
         {/* Recent Workouts */}
-        <Card className="bg-card p-6">
-          <h3 className="text-xl mb-4">Treinos Recentes</h3>
+        <Card className="bg-card p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl mb-4">Treinos Recentes</h3>
           <div className="space-y-3">
             {recentWorkouts.map((workout, index) => (
               <div 
                 key={index}
-                className="flex items-center justify-between p-3 rounded-lg bg-muted/50 border border-border"
+                className="flex items-center justify-between p-3 rounded-lg bg-muted/50 border border-border gap-3"
               >
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary/20 p-2 rounded">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
+                  <div className="bg-primary/20 p-2 rounded shrink-0">
                     <Dumbbell className="h-4 w-4 text-primary" />
                   </div>
-                  <div>
-                    <p className="font-medium">{workout.name}</p>
-                    <p className="text-sm text-muted-foreground">{workout.date}</p>
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm sm:text-base truncate">{workout.name}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{workout.date}</p>
                   </div>
                 </div>
                 {workout.completed && (
-                  <Badge variant="secondary" className="bg-success/20 text-success border-success/30">
+                  <Badge variant="secondary" className="bg-success/20 text-success border-success/30 shrink-0 text-xs">
                     Completo
                   </Badge>
                 )}
@@ -205,36 +208,37 @@ export function StudentDashboard() {
             ))}
           </div>
         </Card>
+        </div>
       </div>
 
-      {/* Bottom Navigation */}
+      {/* Bottom Navigation - alinhado ao container em telas grandes */}
       <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border">
-        <div className="flex justify-around items-center h-16 max-w-md mx-auto px-4">
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-1">
-            <Home className="h-5 w-5 text-primary" />
-            <span className="text-xs text-primary">Início</span>
+        <div className="flex justify-around items-center h-14 sm:h-16 max-w-4xl mx-auto px-2 sm:px-4">
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0">
+            <Home className="h-4 w-4 sm:h-5 sm:w-5 text-primary shrink-0" />
+            <span className="text-[10px] sm:text-xs text-primary truncate">Início</span>
           </Button>
           <Button 
             variant="ghost" 
             size="icon" 
-            className="flex-col h-auto gap-1"
+            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
             onClick={() => navigate("/student/workouts")}
           >
-            <Dumbbell className="h-5 w-5" />
-            <span className="text-xs">Treinos</span>
+            <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+            <span className="text-[10px] sm:text-xs truncate">Treinos</span>
           </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-1">
-            <ChefHat className="h-5 w-5" />
-            <span className="text-xs">Dieta</span>
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0">
+            <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+            <span className="text-[10px] sm:text-xs truncate">Dieta</span>
           </Button>
           <Button 
             variant="ghost" 
             size="icon" 
-            className="flex-col h-auto gap-1"
+            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
             onClick={() => navigate("/student/profile")}
           >
-            <User className="h-5 w-5" />
-            <span className="text-xs">Perfil</span>
+            <User className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+            <span className="text-[10px] sm:text-xs truncate">Perfil</span>
           </Button>
         </div>
       </div>
