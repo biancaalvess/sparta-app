@@ -38,6 +38,8 @@ import {
   Target,
   ArrowDownAZ,
   Filter,
+  List,
+  LayoutGrid,
 } from "lucide-react";
 import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import { useNavigate } from "react-router";
@@ -82,6 +84,7 @@ export function ProfessionalStudents() {
   const [planFilter, setPlanFilter] = useState<string>("all");
   const [frequencyFilter, setFrequencyFilter] = useState<string>("all");
   const [sortAlphabetical, setSortAlphabetical] = useState(false);
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
   const floatingNavItems: FloatingNavItem[] = [
     { icon: <FileText />, label: "Revisões", onClick: () => navigate("/dashboard/professional") },
@@ -241,45 +244,86 @@ export function ProfessionalStudents() {
           </div>
 
           {/* Lista de alunos */}
-          <section className="space-y-2" aria-label="Lista de alunos">
-            {filteredStudents.map((student) => (
-              <div
-                key={student.id}
-                className="glass-card-3d rounded-2xl p-4 sm:p-5"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className="bg-white/[0.08] rounded-full size-10 sm:size-11 flex items-center justify-center shrink-0">
-                      <span className="text-sm font-semibold text-primary/80">{student.avatar}</span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="font-medium text-white/95 truncate">{student.name}</h3>
-                      <p className="text-xs text-white/50 truncate mt-0.5">{student.email}</p>
-                      <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                        <span className="text-[11px] text-white/45">{student.plan}</span>
-                        <span className="text-[11px] text-white/40">{student.frequency}x/semana</span>
-                        {student.lastWorkout && student.lastWorkout !== "—" && (
-                          <span className="text-[11px] text-white/40">Último: {student.lastWorkout}</span>
-                        )}
+          <section aria-label="Lista de alunos">
+            <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
+              <h2 className="text-sm font-medium text-white/70">
+                Alunos <span className="text-white/50 font-normal">({filteredStudents.length})</span>
+              </h2>
+              <div className="glass-card-3d rounded-xl p-0.5" role="group" aria-label="Visualização">
+                <button
+                  type="button"
+                  onClick={() => setViewMode("list")}
+                  className={`p-1.5 sm:p-2 rounded-md transition-colors ${
+                    viewMode === "list"
+                      ? "bg-primary/80 text-primary-foreground"
+                      : "text-white/50 hover:text-white/80 hover:bg-white/[0.06]"
+                  }`}
+                  title="Lista"
+                  aria-pressed={viewMode === "list"}
+                >
+                  <List className="size-4 sm:size-4.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode("grid")}
+                  className={`p-1.5 sm:p-2 rounded-md transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-primary/80 text-primary-foreground"
+                      : "text-white/50 hover:text-white/80 hover:bg-white/[0.06]"
+                  }`}
+                  title="Quadros"
+                  aria-pressed={viewMode === "grid"}
+                >
+                  <LayoutGrid className="size-4 sm:size-4.5" />
+                </button>
+              </div>
+            </div>
+            <div
+              className={
+                viewMode === "list"
+                  ? "space-y-2 sm:space-y-3"
+                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3"
+              }
+            >
+              {filteredStudents.map((student) => (
+                <div
+                  key={student.id}
+                  className="glass-card-3d rounded-xl sm:rounded-2xl p-4 sm:p-5 flex flex-col h-full"
+                >
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between flex-shrink-0 min-w-0">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className="bg-white/[0.08] rounded-full size-10 sm:size-11 flex items-center justify-center shrink-0">
+                        <span className="text-sm font-semibold text-primary/80">{student.avatar}</span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-medium text-white/95 truncate">{student.name}</h3>
+                        <p className="text-xs text-white/50 truncate mt-0.5">{student.email}</p>
+                        <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                          <span className="text-[11px] text-white/45">{student.plan}</span>
+                          <span className="text-[11px] text-white/40">{student.frequency}x/semana</span>
+                          {student.lastWorkout && student.lastWorkout !== "—" && (
+                            <span className="text-[11px] text-white/40">Último: {student.lastWorkout}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-white/[0.06] pt-3 sm:pt-0 sm:border-0">
-                    {getStatusLabel(student.status)}
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-white/70 hover:text-white h-8 text-xs shrink-0"
-                      onClick={() => setSelectedStudent(student)}
-                    >
-                      <Eye className="size-3.5 sm:mr-1.5" />
-                      Ver
-                      <ChevronRight className="size-3.5 hidden sm:inline ml-0.5" />
-                    </Button>
+                    <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-white/[0.06] pt-3 sm:pt-0 sm:border-0 flex-shrink-0">
+                      {getStatusLabel(student.status)}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-white/70 hover:text-white h-8 text-xs shrink-0"
+                        onClick={() => setSelectedStudent(student)}
+                      >
+                        <Eye className="size-3.5 sm:mr-1.5" />
+                        Ver
+                        <ChevronRight className="size-3.5 hidden sm:inline ml-0.5" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </section>
 
           {filteredStudents.length === 0 && (
