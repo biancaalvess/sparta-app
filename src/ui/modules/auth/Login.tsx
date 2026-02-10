@@ -58,51 +58,47 @@ export function Login() {
   ];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+    <div className="min-h-screen bg-page-dark flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-4xl">
-        {/* Logo & Header */}
-        <div className="text-center mb-12 bg-transparent">
+        {/* Logo & Header — hierarquia clara */}
+        <div className="text-center mb-10 sm:mb-14">
           <img
             src="/icon2.png"
             alt="Sparta Fitness AI"
-            className="mx-auto mb-4 h-28 w-28 sm:h-36 sm:w-36 object-contain"
+            className="mx-auto mb-4 h-24 w-24 sm:h-28 sm:w-28 object-contain drop-shadow-lg"
           />
-          <h1 className="text-4xl sm:text-5xl tracking-tight font-display font-bold">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl tracking-tight font-display font-bold text-white">
             SPARTA <span className="text-primary font-display font-bold">FITNESS AI</span>
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-lg sm:text-xl text-white/70 mt-2 max-w-md mx-auto">
             Treinamento inteligente para guerreiros modernos
           </p>
-          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-2 mt-4 text-sm text-white/50">
             <Zap className="h-4 w-4 text-primary" />
             <span>Powered by Artificial Intelligence</span>
           </div>
         </div>
 
-        {/* Profile Selection Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Profile Selection — cards flutuantes com glass */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {profiles.map((profile, index) => {
             const Icon = profile.icon;
             return (
-              <Card 
+              <Card
                 key={index}
-                className={`bg-gradient-to-br ${profile.gradient} border-border hover:border-primary/50 transition-all cursor-pointer group`}
+                variant="glass"
+                className="cursor-pointer group hover:shadow-glass hover:-translate-y-0.5 active:translate-y-0 border-white/10"
                 onClick={() => handleAccess(profile.role as any, profile.path)}
               >
-                <div className="p-6 h-full flex flex-col">
-                  <div className={`${profile.iconBg} p-4 rounded-full w-fit mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon className={`h-8 w-8 ${profile.iconColor}`} />
+                <div className="p-5 sm:p-6 h-full flex flex-col gap-4">
+                  <div className={`${profile.iconBg} p-3.5 rounded-full w-fit group-hover:scale-105 transition-transform duration-200`}>
+                    <Icon className={`h-7 w-7 sm:h-8 sm:w-8 ${profile.iconColor}`} />
                   </div>
-                  
-                  <h3 className="text-2xl font-bold mb-2">{profile.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-6 flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white">{profile.title}</h3>
+                  <p className="text-white/60 text-sm flex-1 leading-relaxed">
                     {profile.description}
                   </p>
-                  
-                  <Button 
-                    variant="default"
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground group-hover:gap-3 transition-all"
-                  >
+                  <Button variant="default" size="lg" className="w-full group-hover:gap-3 transition-all">
                     Acessar
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -112,12 +108,12 @@ export function Login() {
           })}
         </div>
 
-        {/* Footer Info */}
-        <div className="mt-12 text-center">
-          <p className="text-sm text-muted-foreground">
+        {/* Footer — leitura rápida */}
+        <div className="mt-10 sm:mt-14 text-center">
+          <p className="text-sm text-white/50">
             Selecione seu perfil para acessar a plataforma
           </p>
-          <div className="flex items-center justify-center gap-6 mt-4 text-xs text-muted-foreground">
+          <div className="flex items-center justify-center gap-4 sm:gap-6 mt-3 text-xs text-white/40">
             <span>Dark Mode First</span>
             <span>IA Generativa</span>
             <span>Alta Performance</span>

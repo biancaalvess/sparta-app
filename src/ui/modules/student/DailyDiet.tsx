@@ -38,17 +38,12 @@ const DailyDiet: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-20 flex flex-col items-center">
+    <div className="min-h-screen bg-page-dark pb-20 flex flex-col items-center">
       <div className="w-full max-w-4xl">
-        {/* Header - mesmo padrão do dashboard (sem botão perfil no topo) */}
-        <div className="bg-card border-b border-border p-4 sm:p-6">
+        <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6">
           <div>
-            <h1 className="text-2xl sm:text-3xl mb-1 truncate">
-              Nutrição Diária
-            </h1>
-            <p className="text-muted-foreground text-sm sm:text-base">
-              Sua dieta e macros do dia
-            </p>
+            <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white">Nutrição Diária</h1>
+            <p className="text-white/70 text-sm sm:text-base">Sua dieta e macros do dia</p>
           </div>
         </div>
 
@@ -80,7 +75,7 @@ const DailyDiet: React.FC = () => {
           </div>
 
           {/* Certificado Digital / Plano IA */}
-          <Card className="bg-card border-primary/20 overflow-hidden">
+          <Card variant="glass" className="border-white/10 overflow-hidden">
             <div className="p-4 flex items-start gap-4">
               <div className="flex flex-col gap-1 border-r border-primary/20 pr-4 items-center justify-center shrink-0">
                 <Bot className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
@@ -92,7 +87,7 @@ const DailyDiet: React.FC = () => {
                 <Badge className="bg-primary/20 text-primary border-primary/30 text-xs mb-2">
                   Certificado Digital
                 </Badge>
-                <p className="text-sm text-foreground">
+                <p className="text-sm text-white/90">
                   Plano sugerido por Inteligência Artificial
                 </p>
               </div>
@@ -100,14 +95,12 @@ const DailyDiet: React.FC = () => {
           </Card>
 
           {/* Resumo de Macros */}
-          <Card className="bg-card p-4 sm:p-6">
+          <Card variant="glass" className="p-4 sm:p-6 border-white/10">
             <div className="flex items-end justify-between mb-4 gap-2">
-              <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide">
+              <h2 className="text-base sm:text-lg font-bold uppercase tracking-wide text-white">
                 Resumo de Macros
               </h2>
-              <span className="text-xs text-muted-foreground font-medium">
-                Meta diária
-              </span>
+              <span className="text-xs text-white/60 font-medium">Meta diária</span>
             </div>
             <div className="grid grid-cols-3 gap-3">
               {macros.map(({ label, key }) => {
@@ -117,10 +110,10 @@ const DailyDiet: React.FC = () => {
                 return (
                   <div
                     key={key}
-                    className="bg-muted/50 p-3 rounded-lg border border-border flex flex-col gap-2"
+                    className="bg-white/5 p-3 rounded-xl border border-white/10 flex flex-col gap-2"
                   >
                     <div className="flex justify-between items-center gap-1">
-                      <span className="text-[10px] sm:text-xs font-bold text-muted-foreground tracking-wider">
+                      <span className="text-[10px] sm:text-xs font-bold text-white/60 tracking-wider">
                         {label}
                       </span>
                       <span className="text-[10px] sm:text-xs text-primary font-bold shrink-0">
@@ -128,9 +121,8 @@ const DailyDiet: React.FC = () => {
                       </span>
                     </div>
                     <Progress value={pct} className="h-1.5 bg-muted" />
-                    <p className="text-xs text-foreground font-medium">
-                      {val}g{" "}
-                      <span className="text-muted-foreground">/ {target}g</span>
+                    <p className="text-xs text-white/90 font-medium">
+                      {val}g <span className="text-white/60">/ {target}g</span>
                     </p>
                   </div>
                 );
@@ -144,7 +136,8 @@ const DailyDiet: React.FC = () => {
               meals.map((meal, index) => (
                 <Card
                   key={meal.id || index}
-                  className="bg-card border-l-4 border-l-primary overflow-hidden"
+                  variant="glass"
+                  className="border-l-4 border-l-primary border-white/10 overflow-hidden"
                 >
                   <div className="p-4 flex flex-col gap-3">
                     <div className="flex justify-between items-start gap-3">
@@ -190,8 +183,8 @@ const DailyDiet: React.FC = () => {
                 </Card>
               ))
             ) : (
-              <Card className="bg-card p-6 text-center">
-                <p className="text-sm text-muted-foreground">
+              <Card variant="glass" className="p-6 text-center border-white/10">
+                <p className="text-sm text-white/70">
                   Nenhuma refeição registrada hoje. Registre sua primeira
                   refeição abaixo.
                 </p>
@@ -199,54 +192,28 @@ const DailyDiet: React.FC = () => {
             )}
           </div>
 
-          {/* Botão Registrar Refeição */}
-          <Button
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 sm:h-14 text-sm sm:text-base font-bold uppercase tracking-wide shadow-lg"
-            onClick={() => navigate("/meal-scan")}
-          >
+          <Button variant="default" size="lg" className="w-full font-bold uppercase tracking-wide" onClick={() => navigate("/meal-scan")}>
             <PlusCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
             Registrar Refeição
           </Button>
         </div>
       </div>
 
-      {/* Bottom Navigation - mesmo padrão do dashboard e treinos */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#171717] border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.4)]">
+      <div className="fixed bottom-0 left-0 right-0 glass-card border-0 border-t border-white/10 rounded-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
         <div className="flex justify-around items-center h-14 sm:h-16 max-w-4xl mx-auto px-2 sm:px-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
-            onClick={() => navigate("/dashboard/student")}
-          >
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/dashboard/student")}>
             <Home className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Início</span>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
-            onClick={() => navigate("/student/workouts")}
-          >
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/student/workouts")}>
             <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Treinos</span>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
-          >
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0">
             <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 text-primary shrink-0" />
-            <span className="text-[10px] sm:text-xs text-primary truncate">
-              Dieta
-            </span>
+            <span className="text-[10px] sm:text-xs text-primary truncate">Dieta</span>
           </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
-            onClick={() => navigate("/dashboard/perfil")}
-          >
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/dashboard/perfil")}>
             <User className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Perfil</span>
           </Button>

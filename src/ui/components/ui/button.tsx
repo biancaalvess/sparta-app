@@ -29,7 +29,7 @@ const buttonVariantsCva = cva(
 
 const variantStyles: Record<string, string> = {
   default:
-    "relative text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] bg-[radial-gradient(ellipse_at_bottom,rgba(180,140,60,0.95)_0%,rgba(120,85,30,0.98)_45%)] hover:text-white hover:scale-[1.02] hover:-translate-y-0.5 before:opacity-20 hover:before:opacity-100",
+    "relative text-[#171512] font-semibold shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.15)] bg-[radial-gradient(ellipse_at_bottom,rgba(230,180,80,0.98)_0%,rgba(213,159,57,0.95)_45%)] hover:brightness-110 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] before:opacity-20 hover:before:opacity-100",
   destructive:
     "relative text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] bg-[radial-gradient(ellipse_at_bottom,rgba(220,80,60,0.95)_0%,rgba(140,40,30,0.98)_45%)] hover:text-white hover:scale-[1.02] hover:-translate-y-0.5 before:opacity-20 hover:before:opacity-100",
   outline:
@@ -45,7 +45,7 @@ const variantStyles: Record<string, string> = {
 const sizeStyles: Record<string, string> = {
   default: "rounded-[7px] py-2 px-3.5 text-sm font-medium min-w-0",
   sm: "rounded-[6px] py-1.5 px-2.5 text-xs font-medium min-w-0",
-  lg: "rounded-[8px] py-2.5 px-4 text-sm font-medium min-w-0",
+  lg: "rounded-xl py-3 px-6 text-base font-semibold min-w-0",
   icon: "rounded-[7px] p-2 size-8 min-w-0",
 };
 

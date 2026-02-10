@@ -67,6 +67,8 @@
             backgroundImage: {
               "metal-gradient":
                 "linear-gradient(135deg, #d59f39 0%, #b88626 100%)",
+              "page-dark":
+                "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(30, 42, 46, 0.95) 0%, #1a1a1a 45%, #0f1416 100%)",
             },
             boxShadow: {
               "metal-edge": "inset 0 1px 0 rgba(255,255,255,0.1)",
@@ -77,6 +79,11 @@
               metallic:
                 "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
               "chisled-gold": "4px 4px 0px 0px rgba(213, 159, 57, 0.2)",
+              "glass": "0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.06)",
+            },
+            backdropBlur: {
+              xs: "4px",
+              card: "12px",
             },
           },
         },
@@ -180,6 +187,14 @@
           "wght" 400,
           "GRAD" 0,
           "opsz" 48;
+      }
+      .glass-card {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.06);
       }
     </style>
     <script type="importmap">

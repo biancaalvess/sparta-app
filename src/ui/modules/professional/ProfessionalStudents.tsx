@@ -129,7 +129,7 @@ export function ProfessionalStudents() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-page-dark">
       {/* Backdrop mobile */}
       <div
         className={`fixed inset-0 z-40 bg-black/50 lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`}
@@ -139,7 +139,7 @@ export function ProfessionalStudents() {
 
       {/* Sidebar - minimizável; em mobile abre como overlay */}
       <div
-        className={`fixed left-0 top-0 h-full bg-sidebar border-r border-sidebar-border z-50 flex flex-col transition-[width] duration-200 ${
+        className={`fixed left-0 top-0 h-full glass-card border-r border-white/10 rounded-none z-50 flex flex-col transition-[width] duration-200 ${
           mobileMenuOpen ? "w-64 p-6" : sidebarCollapsed ? "w-20 p-3" : "w-64 p-6"
         } ${mobileMenuOpen ? "flex" : "hidden lg:flex"}`}
       >
@@ -216,23 +216,24 @@ export function ProfessionalStudents() {
 
       {/* Main Content */}
       <div className={sidebarCollapsed ? "lg:ml-20" : "lg:ml-64"} style={{ transition: "margin-left 0.2s" }}>
-        <div className="bg-card border-b border-border p-4 sm:p-6">
+        <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6">
           <div className="max-w-7xl mx-auto flex items-center sm:items-start justify-between gap-4">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden shrink-0 p-2 rounded-md opacity-70 hover:opacity-100 bg-black/10 hover:bg-black/20"
+              className="lg:hidden shrink-0 p-2 rounded-md opacity-70 hover:opacity-100 bg-white/10 hover:bg-white/20 text-white"
               aria-label="Abrir menu"
             >
-              <PanelLeftOpen className="h-6 w-6 text-foreground" />
+              <PanelLeftOpen className="h-6 w-6" />
             </button>
             <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2 truncate">Meus alunos</h1>
-              <p className="text-muted-foreground text-sm sm:text-base">Lista de alunos vinculados ao seu perfil</p>
+              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2 truncate text-white">Meus alunos</h1>
+              <p className="text-white/70 text-sm sm:text-base">Lista de alunos vinculados ao seu perfil</p>
             </div>
             <Button
               size="icon"
-              className="shrink-0 h-10 w-10 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+              className="shrink-0 h-10 w-10 rounded-full"
+              variant="default"
               onClick={() => setNewStudentOpen(true)}
               title="Registrar novo aluno"
             >
@@ -245,16 +246,16 @@ export function ProfessionalStudents() {
           {/* Barra de ferramentas: busca + contagem + ação */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
             <div className="flex-1 w-full sm:max-w-md relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50 pointer-events-none" />
               <Input
                 placeholder="Buscar por nome ou e-mail..."
-                className="pl-10 bg-muted/50 border-border h-10"
+                className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-white/40 h-10"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <span className="text-sm text-muted-foreground whitespace-nowrap">
+              <span className="text-sm text-white/60 whitespace-nowrap">
                 {filteredStudents.length} {filteredStudents.length === 1 ? "aluno" : "alunos"}
               </span>
             </div>
@@ -341,7 +342,8 @@ export function ProfessionalStudents() {
             {filteredStudents.map((student) => (
               <Card
                 key={student.id}
-                className="bg-card border-border hover:border-primary/40 transition-colors overflow-hidden"
+                variant="glass"
+                className="border-white/10 hover:shadow-glass transition-all overflow-hidden"
               >
                 <div className="p-4 sm:p-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex items-center gap-4 min-w-0 flex-1">
@@ -349,8 +351,8 @@ export function ProfessionalStudents() {
                       <span className="font-bold text-sm sm:text-base text-primary">{student.avatar}</span>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-semibold text-base sm:text-lg truncate">{student.name}</h3>
-                      <p className="text-sm text-muted-foreground truncate mt-0.5">{student.email}</p>
+                      <h3 className="font-semibold text-base sm:text-lg truncate text-white">{student.name}</h3>
+                      <p className="text-sm text-white/60 truncate mt-0.5">{student.email}</p>
                       <div className="flex items-center gap-2 mt-2 flex-wrap gap-y-1">
                         <Badge variant="secondary" className="text-xs font-normal">
                           {student.plan}
@@ -359,14 +361,14 @@ export function ProfessionalStudents() {
                           {student.frequency}x/semana
                         </span>
                         {student.lastWorkout && student.lastWorkout !== "—" && (
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-xs text-white/50">
                             Último treino: {student.lastWorkout}
                           </span>
                         )}
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-border pt-4 sm:pt-0 sm:border-0">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-white/10 pt-4 sm:pt-0 sm:border-0">
                     {getStatusBadge(student.status)}
                     <Button
                       variant="outline"

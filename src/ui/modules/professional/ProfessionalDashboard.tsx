@@ -126,7 +126,7 @@ export function TrainerDashboard() {
     : mockReviews.filter(r => r.status === filter);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-page-dark">
       {/* Backdrop mobile */}
       <div
         className={`fixed inset-0 z-40 bg-black/50 lg:hidden ${mobileMenuOpen ? "block" : "hidden"}`}
@@ -136,7 +136,7 @@ export function TrainerDashboard() {
 
       {/* Sidebar - minimizável; em mobile abre como overlay */}
       <div
-        className={`fixed left-0 top-0 h-full bg-sidebar border-r border-sidebar-border z-50 flex flex-col transition-[width] duration-200 ${
+        className={`fixed left-0 top-0 h-full glass-card border-r border-white/10 rounded-none z-50 flex flex-col transition-[width] duration-200 ${
           mobileMenuOpen ? "w-64 p-6" : sidebarCollapsed ? "w-20 p-3" : "w-64 p-6"
         } ${mobileMenuOpen ? "flex" : "hidden lg:flex"}`}
       >
@@ -210,19 +210,19 @@ export function TrainerDashboard() {
       {/* Main Content */}
       <div className={sidebarCollapsed ? "lg:ml-20" : "lg:ml-64"} style={{ transition: "margin-left 0.2s" }}>
         {/* Header */}
-        <div className="bg-card border-b border-border p-4 sm:p-6">
+        <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6">
           <div className="max-w-7xl mx-auto flex items-center gap-4">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden shrink-0 p-2 rounded-md opacity-70 hover:opacity-100 bg-black/10 hover:bg-black/20"
+              className="lg:hidden shrink-0 p-2 rounded-md opacity-70 hover:opacity-100 bg-white/10 hover:bg-white/20 text-white"
               aria-label="Abrir menu"
             >
-              <PanelLeftOpen className="h-6 w-6 text-foreground" />
+              <PanelLeftOpen className="h-6 w-6" />
             </button>
             <div className="min-w-0">
-              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2">Dashboard do Personal</h1>
-              <p className="text-muted-foreground text-sm sm:text-base">Gerencie treinos e acompanhe seus alunos</p>
+              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2 text-white">Dashboard do Personal</h1>
+              <p className="text-white/70 text-sm sm:text-base">Gerencie treinos e acompanhe seus alunos</p>
             </div>
           </div>
         </div>
@@ -230,11 +230,11 @@ export function TrainerDashboard() {
         {/* Stats Cards */}
         <div className="p-6 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <Card className="bg-card p-6 border-border">
+            <Card variant="glass" className="p-6 border-white/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Total de Alunos</p>
-                  <p className="text-3xl font-bold">{stats.totalStudents}</p>
+                  <p className="text-sm text-white/60 mb-1">Total de Alunos</p>
+                  <p className="text-3xl font-bold text-white">{stats.totalStudents}</p>
                 </div>
                 <div className="bg-primary/20 p-3 rounded-full">
                   <Users className="h-6 w-6 text-primary" />
@@ -242,10 +242,10 @@ export function TrainerDashboard() {
               </div>
             </Card>
 
-            <Card className="bg-card p-6 border-primary/30">
+            <Card variant="glass" className="p-6 border-white/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Revisões Pendentes</p>
+                  <p className="text-sm text-white/60 mb-1">Revisões Pendentes</p>
                   <p className="text-3xl font-bold text-primary">{stats.pendingReviews}</p>
                 </div>
                 <div className="bg-primary/20 p-3 rounded-full">
@@ -254,11 +254,11 @@ export function TrainerDashboard() {
               </div>
             </Card>
 
-            <Card className="bg-card p-6 border-border">
+            <Card variant="glass" className="p-6 border-white/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground mb-1">Treinos Ativos</p>
-                  <p className="text-3xl font-bold">{stats.activeWorkouts}</p>
+                  <p className="text-sm text-white/60 mb-1">Treinos Ativos</p>
+                  <p className="text-3xl font-bold text-white">{stats.activeWorkouts}</p>
                 </div>
                 <div className="bg-success/20 p-3 rounded-full">
                   <CheckCircle className="h-6 w-6 text-success" />
@@ -270,10 +270,10 @@ export function TrainerDashboard() {
           {/* Filters and Search */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50" />
               <Input 
                 placeholder="Buscar por aluno ou treino..." 
-                className="pl-10 bg-muted border-border"
+                className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-white/40"
               />
             </div>
             <div className="flex gap-2">
@@ -311,7 +311,7 @@ export function TrainerDashboard() {
           {/* Reviews List */}
           <div className="space-y-4">
             {filteredReviews.map((review) => (
-              <Card key={review.id} className="bg-card border-border hover:border-primary/50 transition-colors">
+              <Card key={review.id} variant="glass" className="border-white/10 hover:shadow-glass transition-all">
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-4">
@@ -319,8 +319,8 @@ export function TrainerDashboard() {
                         <span className="font-bold text-primary">{review.studentAvatar}</span>
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg">{review.studentName}</h3>
-                        <p className="text-sm text-muted-foreground">{review.createdAt}</p>
+                        <h3 className="font-semibold text-lg text-white">{review.studentName}</h3>
+                        <p className="text-sm text-white/60">{review.createdAt}</p>
                       </div>
                     </div>
                     {getStatusBadge(review.status)}
@@ -329,27 +329,24 @@ export function TrainerDashboard() {
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Sparkles className="h-4 w-4 text-primary" />
-                      <h4 className="font-semibold">{review.workoutName}</h4>
+                      <h4 className="font-semibold text-white">{review.workoutName}</h4>
                       <Badge variant="secondary" className="text-xs">
                         Gerado por IA
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">{review.description}</p>
+                    <p className="text-sm text-white/60">{review.description}</p>
                   </div>
 
                   <div className="flex gap-2">
                     <Button 
                       variant="outline" 
-                      className="flex-1 border-primary/30 hover:bg-primary/10"
+                      className="flex-1 border-white/20 hover:bg-white/10 text-white"
                       onClick={() => navigate("/trainer/edit-workout")}
                     >
                       <Eye className="mr-2 h-4 w-4" />
                       Revisar
                     </Button>
-                    <Button 
-                      className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
-                      onClick={() => navigate("/trainer/edit-workout")}
-                    >
+                    <Button variant="default" size="lg" className="flex-1" onClick={() => navigate("/trainer/edit-workout")}>
                       <ThumbsUp className="mr-2 h-4 w-4" />
                       Aprovar
                     </Button>
