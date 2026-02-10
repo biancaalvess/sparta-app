@@ -226,7 +226,7 @@ export function StudentDashboard() {
             variant="ghost" 
             size="icon" 
             className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0"
-            onClick={() => navigate("/student/profile")}
+            onClick={() => navigate("/dashboard/perfil")}
           >
             <User className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Perfil</span>

@@ -10,6 +10,7 @@ import { StudentDashboard } from './ui/modules/student/StudentDashboard';
 import { StudentWorkouts } from './ui/modules/student/StudentWorkouts';
 import WorkoutOverview from './ui/modules/student/WorkoutOverview';
 import DailyDiet from './ui/modules/student/DailyDiet';
+import { StudentProfile } from './ui/modules/student/StudentProfile';
 
 // Profissional (Trainer) - Ajustado para o nome do arquivo na sua tree
 import { TrainerDashboard as ProfessionalDashboard } from './ui/modules/professional/ProfessionalDashboard';
@@ -57,6 +58,16 @@ const App: React.FC = () => {
           <Route path="/diet" element={
             <PrivateRoute allowedRole="STUDENT">
               <DailyDiet />
+            </PrivateRoute>
+          } />
+          <Route path="/dashboard/perfil" element={
+            <PrivateRoute allowedRole="STUDENT">
+              <StudentProfile />
+            </PrivateRoute>
+          } />
+          <Route path="/student/profile" element={
+            <PrivateRoute allowedRole="STUDENT">
+              <StudentProfile />
             </PrivateRoute>
           } />
 
