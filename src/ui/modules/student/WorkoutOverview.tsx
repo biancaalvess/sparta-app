@@ -1,149 +1,229 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSparta } from "../../../shared/context/SpartaContext";
-import { IMAGES } from "../../../shared/constants/images";
+import { useSparta } from "@/shared/context/SpartaContext";
+import { Card } from "@/ui/components/ui/card";
+import { Button } from "@/ui/components/ui/button";
+import { PlayCircle, ArrowLeft, Flame, Clock, Dumbbell } from "lucide-react";
+import { IMAGES } from "@/shared/constants/images";
+import type { Workout, Exercise } from "@/shared/types";
+import { MuscleGroup } from "@/shared/types";
 
-const WorkoutOverview: React.FC = () => {
-  const navigate = useNavigate();
-  // Busca o treino atual do contexto
-  const { user } = useSparta();
-  const workout = user?.currentWorkout;
+/** Dados exibidos na tela (apenas apresentação). Calorias opcional se vier da API no futuro. */
+export interface WorkoutOverviewData {
+  workout: Workout;
+  /** Calorias estimadas (opcional; se não informado, exibe "—") */
+  caloriesEstimated?: number;
+  /** URL do avatar do instrutor ou indicador de contexto (opcional) */
+  instructorAvatarUrl?: string;
+}
 
-  if (!workout)
-    return <div className="p-10 text-white">Carregando Treino...</div>;
+/** Treino de demonstração quando o contexto ainda não tem currentWorkout (ex.: após login sem API). */
+const DEMO_WORKOUT: Workout = {
+  id: "demo-1",
+  name: "Full body workout",
+  focalMuscles: "Corpo completo",
+  duration: 45,
+  exercises: [
+    {
+      id: "ex-1",
+      name: "Agachamento livre",
+      sets: 3,
+      reps: "12",
+      muscleGroup: MuscleGroup.LEGS,
+      image: IMAGES.WORKOUT_MAIN,
+    },
+    {
+      id: "ex-2",
+      name: "Supino reto",
+      sets: 3,
+      reps: "10",
+      muscleGroup: MuscleGroup.CHEST,
+      image: IMAGES.WORKOUT_MAIN,
+    },
+    {
+      id: "ex-3",
+      name: "Remada curvada",
+      sets: 3,
+      reps: "12",
+      muscleGroup: MuscleGroup.BACK,
+      image: IMAGES.WORKOUT_MAIN,
+    },
+  ],
+  isAiGenerated: true,
+};
+
+export interface WorkoutOverviewCallbacks {
+  onBack: () => void;
+  onStartWorkout: () => void;
+  /** Opcional: ao clicar em um exercício da lista (ex.: abrir detalhe ou ir para treino ativo) */
+  onExerciseClick?: (exercise: Exercise, index: number) => void;
+}
+
+export interface WorkoutOverviewProps extends WorkoutOverviewData, WorkoutOverviewCallbacks {}
+
+/**
+ * Tela de visão geral do treino.
+ * Apenas UI: exibe dados recebidos por props e dispara eventos.
+ * Sem lógica de negócio, cálculos complexos ou chamadas de API.
+ */
+export function WorkoutOverviewScreen({
+  workout,
+  caloriesEstimated,
+  instructorAvatarUrl,
+  onBack,
+  onStartWorkout,
+  onExerciseClick,
+}: WorkoutOverviewProps) {
+  const heroImage = workout.exercises[0]?.image || IMAGES.SPLASH_BG;
 
   return (
-    <div className="relative flex h-full w-full flex-col bg-[#171512] overflow-hidden">
-      <header className="flex items-center bg-[#1a1a1a] p-4 pb-2 justify-between sticky top-0 z-20 border-b border-border-dark/50 backdrop-blur-md bg-opacity-90">
-        <button
-          onClick={() => navigate("/dashboard")}
-          className="text-white hover:text-primary transition-colors flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-white/5"
-        >
-          <span className="material-symbols-outlined text-2xl">arrow_back</span>
-        </button>
-        <h2 className="text-white text-lg font-bold leading-tight tracking-tight uppercase">
-          Visão Geral do Treino
-        </h2>
-        <div className="size-10"></div>
-      </header>
+    <div className="min-h-screen bg-page-dark flex flex-col">
+      {/* Hero: imagem principal do exercício (conteúdo não interativo) */}
+      <div className="relative w-full aspect-[4/3] sm:aspect-video max-h-[45vh] rounded-b-3xl overflow-hidden shrink-0">
+        <img
+          src={heroImage}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-      <main className="flex-1 overflow-y-auto pb-32 p-4">
-        <div className="relative w-full rounded-xl overflow-hidden border border-border-dark group shadow-metallic mb-6">
-          <div
-            className="absolute inset-0 bg-cover bg-center z-0"
-            style={{ backgroundImage: `url('${IMAGES.SPLASH_BG}')` }}
-          ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/80 to-[#1a1a1a]/40 z-0"></div>
-          <div className="absolute inset-0 bg-grid-pattern z-0"></div>
-          <div className="relative z-10 p-5 flex flex-col gap-4">
-            <div className="flex flex-wrap gap-2 mb-2">
-              <div className="flex items-center gap-1.5 bg-primary/20 border border-primary/30 backdrop-blur-sm px-2.5 py-1 rounded text-xs font-bold text-primary tracking-wide">
-                <span className="material-symbols-outlined text-[16px]">
-                  neurology
-                </span>
-                TREINO IA
+        {/* Header sobreposto com fundo translúcido */}
+        <header className="absolute inset-x-0 top-0 z-10 glass-card border-0 rounded-none rounded-b-2xl px-4 py-3 flex items-center justify-between">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex size-10 shrink-0 items-center justify-center rounded-full text-white hover:bg-white/10 transition-colors"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="size-5" />
+          </button>
+          <span className="text-white/90 text-sm font-medium truncate max-w-[40%]">
+            Visão do treino
+          </span>
+          <div className="flex size-10 shrink-0 items-center justify-center">
+            {instructorAvatarUrl ? (
+              <img
+                src={instructorAvatarUrl}
+                alt=""
+                className="size-8 rounded-full object-cover border-2 border-white/30"
+              />
+            ) : (
+              <div className="size-8 rounded-full bg-primary/30 border-2 border-primary/50 flex items-center justify-center">
+                <Dumbbell className="size-4 text-primary" />
               </div>
+            )}
+          </div>
+        </header>
+      </div>
+
+      <main className="flex-1 overflow-y-auto pb-36 pt-4 px-4">
+        <div className="w-full max-w-2xl mx-auto space-y-5">
+          {/* Informações do treino: nome + metadados */}
+          <div className="space-y-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight tracking-tight">
+              {workout.name}
+            </h1>
+            <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
+              <span className="flex items-center gap-1.5">
+                <Clock className="size-4 text-primary shrink-0" />
+                {workout.duration} min
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Flame className="size-4 text-primary shrink-0" />
+                {caloriesEstimated != null ? `${caloriesEstimated} kcal` : "— kcal"}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Dumbbell className="size-4 text-primary shrink-0" />
+                {workout.exercises.length} exercícios
+              </span>
             </div>
-            <div className="space-y-1">
-              <h1 className="text-3xl font-bold text-white leading-none tracking-tight uppercase">
-                {workout.name}
-              </h1>
-              <p className="text-gray-300 text-sm font-light tracking-wide flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                FOCO: {workout.focalMuscles}
+            {workout.focalMuscles && (
+              <p className="text-xs uppercase tracking-wider text-white/50">
+                Foco: {workout.focalMuscles}
               </p>
-            </div>
+            )}
           </div>
-        </div>
 
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="flex flex-col items-center justify-center gap-1 rounded-lg p-3 border border-border-dark bg-surface-dark shadow-sm">
-            <span className="material-symbols-outlined text-primary text-xl mb-1">
-              timer
-            </span>
-            <p className="text-gray-400 text-[10px] font-medium uppercase tracking-wider">
-              TEMPO
-            </p>
-            <p className="text-white text-lg font-bold leading-none">
-              {workout.duration} MIN
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1 rounded-lg p-3 border border-border-dark bg-surface-dark shadow-sm">
-            <span className="material-symbols-outlined text-primary text-xl mb-1">
-              ecg_heart
-            </span>
-            <p className="text-gray-400 text-[10px] font-medium uppercase tracking-wider">
-              INTENSIDADE
-            </p>
-            <p className="text-white text-lg font-bold leading-none">ALTA</p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-1 rounded-lg p-3 border border-border-dark bg-surface-dark shadow-sm">
-            <span className="material-symbols-outlined text-primary text-xl mb-1">
-              fitness_center
-            </span>
-            <p className="text-gray-400 text-[10px] font-medium uppercase tracking-wider">
-              VOLUME
-            </p>
-            <p className="text-white text-lg font-bold leading-none">
-              {workout.exercises.length} EXER.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <div className="flex justify-between items-end px-1 mb-1">
-            <h3 className="text-white text-sm font-bold tracking-wider uppercase">
+          {/* Lista de exercícios/séries (scrollável, cards individuais) */}
+          <div className="space-y-3">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-white/80">
               Sequência
-            </h3>
-            <span className="text-xs text-primary font-medium">
-              Lista Completa
-            </span>
-          </div>
-          {workout.exercises.map((ex, idx) => (
-            <div
-              key={ex.id || idx}
-              onClick={() => navigate("/active-workout")}
-              className="cursor-pointer relative group overflow-hidden rounded-lg bg-surface-dark border border-border-dark shadow-sm hover:border-primary/40 transition-colors"
-            >
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-              <div className="flex items-center gap-4 p-3">
-                <div className="relative shrink-0 size-16 rounded-md overflow-hidden bg-black">
-                  <img
-                    className="w-full h-full object-cover opacity-80"
-                    src={ex.image || IMAGES.WORKOUT_MAIN}
-                    alt={ex.name}
-                  />
-                  <div className="absolute inset-0 bg-primary/10"></div>
-                </div>
-                <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                  <p className="text-white text-base font-bold leading-tight uppercase truncate">
-                    {ex.name}
-                  </p>
-                  <div className="flex items-center gap-2 mt-1">
-                    <span className="bg-[#1a1a1a] px-2 py-0.5 rounded text-xs font-mono text-primary border border-white/5">
-                      {ex.sets} SÉRIES
-                    </span>
-                    <span className="text-gray-300 text-xs font-mono">
-                      {ex.reps} REPS
-                    </span>
+            </h2>
+            <div className="flex flex-col gap-3">
+              {workout.exercises.map((ex, idx) => (
+                <Card
+                  key={ex.id || idx}
+                  variant="glass"
+                  className={`border-white/10 overflow-hidden transition-all ${
+                    onExerciseClick ? "cursor-pointer hover:shadow-glass active:scale-[0.99]" : ""
+                  }`}
+                  onClick={() => onExerciseClick?.(ex, idx)}
+                >
+                  <div className="flex items-center gap-4 p-3 sm:p-4">
+                    <div className="relative shrink-0 size-16 sm:size-20 rounded-xl overflow-hidden bg-black/40">
+                      <img
+                        src={ex.image || IMAGES.WORKOUT_MAIN}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-white font-semibold text-sm sm:text-base leading-tight truncate">
+                        {ex.name}
+                      </p>
+                      <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                        <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded">
+                          {ex.sets} séries
+                        </span>
+                        <span className="text-xs text-white/60">
+                          {ex.reps} reps
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </Card>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </main>
 
-      <footer className="fixed bottom-0 z-30 w-full max-w-md bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a] to-transparent pt-12 pb-6 px-4">
-        <button
-          onClick={() => navigate("/active-workout")}
-          className="w-full bg-primary hover:bg-primary-dark text-[#1a1a1a] active:scale-[0.98] transition-all duration-150 rounded-lg h-14 font-bold text-lg uppercase tracking-wide flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(213,159,57,0.3)] border-t border-white/20"
-        >
-          <span className="material-symbols-outlined">play_arrow</span>INICIAR
-          TREINO
-        </button>
+      {/* CTA principal fixo no rodapé */}
+      <footer className="fixed bottom-0 left-0 right-0 z-20 p-4 pt-8 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/95 to-transparent pointer-events-none">
+        <div className="max-w-2xl mx-auto pointer-events-auto">
+          <Button
+            variant="default"
+            size="lg"
+            className="w-full h-14 text-base sm:text-lg font-bold rounded-2xl shadow-glass flex items-center justify-center gap-2"
+            onClick={onStartWorkout}
+          >
+            <PlayCircle className="size-5 sm:size-6 shrink-0" />
+            Iniciar treino
+          </Button>
+        </div>
       </footer>
     </div>
+  );
+}
+
+/**
+ * Container que injeta dados do contexto e navegação.
+ * Mantém a tela puramente presentacional.
+ */
+const WorkoutOverview: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useSparta();
+  const workout = user?.currentWorkout ?? DEMO_WORKOUT;
+
+  return (
+    <WorkoutOverviewScreen
+      workout={workout}
+      instructorAvatarUrl={IMAGES.INSTRUCTOR}
+      onBack={() => navigate(-1)}
+      onStartWorkout={() => navigate("/active-workout")}
+      onExerciseClick={() => navigate("/active-workout")}
+    />
   );
 };
 
