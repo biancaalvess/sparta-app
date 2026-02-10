@@ -40,6 +40,8 @@ import {
   Phone,
   Calendar,
   Target,
+  ArrowDownAZ,
+  Filter,
 } from "lucide-react";
 import { useNavigate } from "react-router";
 
@@ -52,6 +54,7 @@ interface Student {
   email: string;
   plan: string;
   status: "active" | "inactive" | "pending";
+  frequency: number; // treinos por semana
   lastWorkout?: string;
   phone?: string;
   birthDate?: string;
@@ -59,13 +62,15 @@ interface Student {
 }
 
 const MOCK_STUDENTS: Student[] = [
-  { id: "1", name: "Carlos Silva", avatar: "CS", email: "carlos.silva@email.com", plan: "Premium", status: "active", lastWorkout: "Hoje", phone: "(11) 98765-4321", birthDate: "15/03/1990", goal: "Hipertrofia" },
-  { id: "2", name: "Ana Santos", avatar: "AS", email: "ana.santos@email.com", plan: "Básico", status: "active", lastWorkout: "Ontem", phone: "(11) 91234-5678", birthDate: "22/07/1995", goal: "Emagrecimento" },
-  { id: "3", name: "João Pedro", avatar: "JP", email: "joao.pedro@email.com", plan: "Premium", status: "active", lastWorkout: "Há 2 dias", phone: "(21) 99876-5432", birthDate: "10/11/1988", goal: "Força" },
-  { id: "4", name: "Marina Costa", avatar: "MC", email: "marina.costa@email.com", plan: "Premium", status: "active", lastWorkout: "Há 3 dias", phone: "(31) 97654-3210", birthDate: "05/01/1992", goal: "Condicionamento" },
-  { id: "5", name: "Rafael Oliveira", avatar: "RO", email: "rafael.oliveira@email.com", plan: "Básico", status: "pending", lastWorkout: "—", phone: "(11) 96543-2109", birthDate: "18/09/1985", goal: "Hipertrofia" },
-  { id: "6", name: "Fernanda Lima", avatar: "FL", email: "fernanda.lima@email.com", plan: "Básico", status: "inactive", lastWorkout: "Há 1 semana", phone: "(41) 95432-1098", birthDate: "30/12/1993", goal: "Emagrecimento" },
+  { id: "1", name: "Carlos Silva", avatar: "CS", email: "carlos.silva@email.com", plan: "Premium", status: "active", frequency: 4, lastWorkout: "Hoje", phone: "(11) 98765-4321", birthDate: "15/03/1990", goal: "Hipertrofia" },
+  { id: "2", name: "Ana Santos", avatar: "AS", email: "ana.santos@email.com", plan: "Básico", status: "active", frequency: 3, lastWorkout: "Ontem", phone: "(11) 91234-5678", birthDate: "22/07/1995", goal: "Emagrecimento" },
+  { id: "3", name: "João Pedro", avatar: "JP", email: "joao.pedro@email.com", plan: "Premium", status: "active", frequency: 5, lastWorkout: "Há 2 dias", phone: "(21) 99876-5432", birthDate: "10/11/1988", goal: "Força" },
+  { id: "4", name: "Marina Costa", avatar: "MC", email: "marina.costa@email.com", plan: "Premium", status: "active", frequency: 4, lastWorkout: "Há 3 dias", phone: "(31) 97654-3210", birthDate: "05/01/1992", goal: "Condicionamento" },
+  { id: "5", name: "Rafael Oliveira", avatar: "RO", email: "rafael.oliveira@email.com", plan: "Básico", status: "pending", frequency: 2, lastWorkout: "—", phone: "(11) 96543-2109", birthDate: "18/09/1985", goal: "Hipertrofia" },
+  { id: "6", name: "Fernanda Lima", avatar: "FL", email: "fernanda.lima@email.com", plan: "Básico", status: "inactive", frequency: 3, lastWorkout: "Há 1 semana", phone: "(41) 95432-1098", birthDate: "30/12/1993", goal: "Emagrecimento" },
 ];
+
+const FREQUENCY_OPTIONS = [2, 3, 4, 5] as const;
 
 const PLAN_OPTIONS = [
   { value: "Básico", label: "Básico", price: "49,99" },
@@ -82,6 +87,10 @@ export function ProfessionalStudents() {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [newStudentOpen, setNewStudentOpen] = useState(false);
   const [newStudentPlan, setNewStudentPlan] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "inactive" | "pending">("all");
+  const [planFilter, setPlanFilter] = useState<string>("all");
+  const [frequencyFilter, setFrequencyFilter] = useState<string>("all");
+  const [sortAlphabetical, setSortAlphabetical] = useState(false);
 
   const toggleSidebar = () => {
     const next = !sidebarCollapsed;
@@ -89,11 +98,20 @@ export function ProfessionalStudents() {
     localStorage.setItem(SIDEBAR_COLLAPSED_KEY, next ? "1" : "0");
   };
 
-  const filteredStudents = MOCK_STUDENTS.filter(
-    (s) =>
-      s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.email.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredStudents = (() => {
+    let list = MOCK_STUDENTS.filter(
+      (s) =>
+        s.name.toLowerCase().includes(search.toLowerCase()) ||
+        s.email.toLowerCase().includes(search.toLowerCase())
+    );
+    if (statusFilter !== "all") list = list.filter((s) => s.status === statusFilter);
+    if (planFilter !== "all") list = list.filter((s) => s.plan === planFilter);
+    if (frequencyFilter !== "all") list = list.filter((s) => s.frequency === Number(frequencyFilter));
+    if (sortAlphabetical) {
+      list = [...list].sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    }
+    return list;
+  })();
 
   const getStatusBadge = (status: Student["status"]) => {
     switch (status) {
@@ -223,74 +241,167 @@ export function ProfessionalStudents() {
           </div>
         </div>
 
-        <div className="p-6 max-w-7xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+          {/* Barra de ferramentas: busca + contagem + ação */}
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+            <div className="flex-1 w-full sm:max-w-md relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
               <Input
                 placeholder="Buscar por nome ou e-mail..."
-                className="pl-10 bg-muted border-border"
+                className="pl-10 bg-muted/50 border-border h-10"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="text-sm text-muted-foreground whitespace-nowrap">
+                {filteredStudents.length} {filteredStudents.length === 1 ? "aluno" : "alunos"}
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-muted-foreground">
-              {filteredStudents.length} aluno(s)
-            </p>
+          {/* Filtros */}
+          <div className="flex flex-col gap-4 mb-6">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Filter className="h-4 w-4 shrink-0" />
+              <span className="font-medium">Filtros</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Status</span>
+                <div className="flex rounded-lg border border-border bg-muted/30 p-0.5">
+                  {(["all", "active", "inactive", "pending"] as const).map((value) => (
+                    <button
+                      key={value}
+                      type="button"
+                      onClick={() => setStatusFilter(value)}
+                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
+                        statusFilter === value
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      }`}
+                    >
+                      {value === "all" ? "Todos" : value === "active" ? "Ativos" : value === "inactive" ? "Inativos" : "Pendentes"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Plano</span>
+                <Select value={planFilter} onValueChange={setPlanFilter}>
+                  <SelectTrigger className="w-[130px] h-8 text-xs bg-muted/50 border-border">
+                    <SelectValue placeholder="Plano" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todos</SelectItem>
+                    {PLAN_OPTIONS.map((p) => (
+                      <SelectItem key={p.value} value={p.value}>
+                        {p.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Frequência</span>
+                <Select value={frequencyFilter} onValueChange={setFrequencyFilter}>
+                  <SelectTrigger className="w-[130px] h-8 text-xs bg-muted/50 border-border">
+                    <SelectValue placeholder="Por semana" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todas</SelectItem>
+                    {FREQUENCY_OPTIONS.map((n) => (
+                      <SelectItem key={n} value={String(n)}>
+                        {n}x por semana
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSortAlphabetical((v) => !v)}
+                  className={`flex items-center gap-2 px-3 py-1.5 h-8 text-xs font-medium rounded-lg border transition-colors ${
+                    sortAlphabetical
+                      ? "bg-primary/20 border-primary/40 text-primary"
+                      : "border-border bg-muted/30 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  }`}
+                  title={sortAlphabetical ? "Desativar ordem alfabética" : "Ordenar A–Z"}
+                >
+                  <ArrowDownAZ className="h-4 w-4" />
+                  A–Z
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="space-y-4">
+          {/* Lista de alunos */}
+          <section className="space-y-3" aria-label="Lista de alunos">
             {filteredStudents.map((student) => (
               <Card
                 key={student.id}
-                className="bg-card border-border hover:border-primary/50 transition-colors"
+                className="bg-card border-border hover:border-primary/40 transition-colors overflow-hidden"
               >
-                <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex items-center gap-4 min-w-0">
-                    <div className="bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center shrink-0">
-                      <span className="font-bold text-primary">{student.avatar}</span>
+                <div className="p-4 sm:p-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-4 min-w-0 flex-1">
+                    <div className="bg-primary/20 rounded-full w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
+                      <span className="font-bold text-sm sm:text-base text-primary">{student.avatar}</span>
                     </div>
-                    <div className="min-w-0">
-                      <h3 className="font-semibold text-lg truncate">{student.name}</h3>
-                      <p className="text-sm text-muted-foreground truncate">{student.email}</p>
-                      <div className="flex items-center gap-2 mt-1 flex-wrap">
-                        <span className="text-xs text-muted-foreground">{student.plan}</span>
-                        {student.lastWorkout && (
-                          <>
-                            <span className="text-muted-foreground/50">·</span>
-                            <span className="text-xs text-muted-foreground">
-                              Último treino: {student.lastWorkout}
-                            </span>
-                          </>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-semibold text-base sm:text-lg truncate">{student.name}</h3>
+                      <p className="text-sm text-muted-foreground truncate mt-0.5">{student.email}</p>
+                      <div className="flex items-center gap-2 mt-2 flex-wrap gap-y-1">
+                        <Badge variant="secondary" className="text-xs font-normal">
+                          {student.plan}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">
+                          {student.frequency}x/semana
+                        </span>
+                        {student.lastWorkout && student.lastWorkout !== "—" && (
+                          <span className="text-xs text-muted-foreground">
+                            Último treino: {student.lastWorkout}
+                          </span>
                         )}
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-border pt-4 sm:pt-0 sm:border-0">
                     {getStatusBadge(student.status)}
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-primary/30 hover:bg-primary/10"
+                      className="border-primary/30 hover:bg-primary/10 shrink-0"
                       onClick={() => setSelectedStudent(student)}
                     >
-                      <Eye className="mr-2 h-4 w-4" />
-                      Ver
-                      <ChevronRight className="ml-1 h-4 w-4" />
+                      <Eye className="h-4 w-4 sm:mr-2" />
+                      <span className="hidden sm:inline">Ver</span>
+                      <ChevronRight className="h-4 w-4 sm:ml-0.5" />
                     </Button>
                   </div>
                 </div>
               </Card>
             ))}
-          </div>
+          </section>
 
           {filteredStudents.length === 0 && (
-            <div className="text-center py-12 text-muted-foreground">
-              <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>Nenhum aluno encontrado para &quot;{search}&quot;</p>
+            <div className="text-center py-16 px-4 rounded-lg border border-dashed border-border bg-muted/20">
+              <Users className="h-14 w-14 mx-auto mb-4 text-muted-foreground/50" />
+              <p className="text-muted-foreground font-medium">
+                Nenhum aluno encontrado
+              </p>
+              <p className="text-sm text-muted-foreground mt-1">
+                {search ? `Não há resultados para "${search}".` : "Registre um novo aluno para começar."}
+              </p>
+              {!search && (
+                <Button
+                  className="mt-4"
+                  onClick={() => setNewStudentOpen(true)}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Registrar aluno
+                </Button>
+              )}
             </div>
           )}
         </div>
@@ -337,6 +448,10 @@ export function ProfessionalStudents() {
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">Plano:</span>
                   <Badge variant="secondary">{selectedStudent.plan}</Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">Frequência:</span>
+                  <span>{selectedStudent.frequency}x por semana</span>
                 </div>
                 {selectedStudent.goal && (
                   <div className="flex items-center gap-3">
