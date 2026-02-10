@@ -73,7 +73,7 @@ const DailyDiet: React.FC = () => {
           </div>
 
           {/* Certificado Digital / Plano IA */}
-          <div className="rounded-2xl p-4 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4">
             <div className="flex items-start gap-4">
               <div className="flex flex-col gap-0.5 border-r border-white/10 pr-4 items-center justify-center shrink-0">
                 <Bot className="h-5 w-5 sm:h-6 sm:w-6 text-primary/80" />
@@ -89,7 +89,7 @@ const DailyDiet: React.FC = () => {
           </div>
 
           {/* Resumo de Macros */}
-          <div className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <div className="flex items-end justify-between mb-3 gap-2">
               <h2 className="text-sm font-medium text-white/90 tracking-tight">
                 Resumo de Macros
@@ -130,7 +130,7 @@ const DailyDiet: React.FC = () => {
               meals.map((meal, index) => (
                 <div
                   key={meal.id || index}
-                  className="rounded-2xl p-4 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] border-l-2 border-l-primary/40"
+                  className="glass-card-3d rounded-2xl p-4 border-l-2 border-l-primary/40"
                 >
                   <div className="flex flex-col gap-2">
                     <div className="flex justify-between items-start gap-3">
@@ -172,12 +172,12 @@ const DailyDiet: React.FC = () => {
                 </div>
               ))
             ) : (
-              <div className="rounded-2xl p-6 text-center bg-white/[0.06] border border-white/[0.06]">
+              <div className="glass-card-3d rounded-2xl p-6 text-center">
                 <p className="text-sm text-white/50">
                   Nenhuma refeição registrada hoje. Registre sua primeira
                   refeição abaixo.
                 </p>
-              </Card>
+              </div>
             )}
           </div>
 

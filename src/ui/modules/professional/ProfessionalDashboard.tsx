@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { Card } from "@/ui/components/ui/card";
 import { Button } from "@/ui/components/ui/button";
-import { Badge } from "@/ui/components/ui/badge";
 import { Input } from "@/ui/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/components/ui/tabs";
 import {
   Users,
   Search,
@@ -108,16 +105,12 @@ export function TrainerDashboard() {
     activeWorkouts: mockReviews.filter(r => r.status === "active").length,
   };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusLabel = (status: string) => {
     switch (status) {
-      case "draft":
-        return <Badge className="bg-muted text-muted-foreground border-muted">Draft</Badge>;
-      case "pending":
-        return <Badge className="bg-primary/20 text-primary border-primary/30">Pendente</Badge>;
-      case "active":
-        return <Badge className="bg-success/20 text-success border-success/30">Ativo</Badge>;
-      default:
-        return null;
+      case "draft": return <span className="text-[11px] font-medium text-white/45">Draft</span>;
+      case "pending": return <span className="text-[11px] font-medium text-primary/80">Pendente</span>;
+      case "active": return <span className="text-[11px] font-medium text-primary/80">Ativo</span>;
+      default: return null;
     }
   };
 
@@ -221,138 +214,118 @@ export function TrainerDashboard() {
               <PanelLeftOpen className="h-6 w-6" />
             </button>
             <div className="min-w-0">
-              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2 text-white">Dashboard do Personal</h1>
-              <p className="text-white/70 text-sm sm:text-base">Gerencie treinos e acompanhe seus alunos</p>
+            <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 text-white tracking-tight">Dashboard do Personal</h1>
+            <p className="text-white/50 text-sm">Gerencie treinos e acompanhe seus alunos</p>
             </div>
           </div>
         </div>
 
-        {/* Stats Cards */}
         <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 lg:mb-8">
-            <Card variant="glass" className="p-6 border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 mb-6 lg:mb-8">
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/60 mb-1">Total de Alunos</p>
-                  <p className="text-3xl font-bold text-white">{stats.totalStudents}</p>
+                  <p className="text-xs font-medium text-white/50 mb-0.5">Total de alunos</p>
+                  <p className="text-2xl font-semibold text-white/95 tabular-nums">{stats.totalStudents}</p>
                 </div>
-                <div className="bg-primary/20 p-3 rounded-full">
-                  <Users className="h-6 w-6 text-primary" />
+                <div className="bg-white/[0.08] p-2.5 rounded-full">
+                  <Users className="size-5 text-primary/70" />
                 </div>
               </div>
-            </Card>
-
-            <Card variant="glass" className="p-6 border-white/10">
+            </div>
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/60 mb-1">Revisões Pendentes</p>
-                  <p className="text-3xl font-bold text-primary">{stats.pendingReviews}</p>
+                  <p className="text-xs font-medium text-white/50 mb-0.5">Revisões pendentes</p>
+                  <p className="text-2xl font-semibold text-primary/90 tabular-nums">{stats.pendingReviews}</p>
                 </div>
-                <div className="bg-primary/20 p-3 rounded-full">
-                  <Clock className="h-6 w-6 text-primary" />
+                <div className="bg-white/[0.08] p-2.5 rounded-full">
+                  <Clock className="size-5 text-primary/70" />
                 </div>
               </div>
-            </Card>
-
-            <Card variant="glass" className="p-6 border-white/10">
+            </div>
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/60 mb-1">Treinos Ativos</p>
-                  <p className="text-3xl font-bold text-white">{stats.activeWorkouts}</p>
+                  <p className="text-xs font-medium text-white/50 mb-0.5">Treinos ativos</p>
+                  <p className="text-2xl font-semibold text-white/95 tabular-nums">{stats.activeWorkouts}</p>
                 </div>
-                <div className="bg-success/20 p-3 rounded-full">
-                  <CheckCircle className="h-6 w-6 text-success" />
+                <div className="bg-white/[0.08] p-2.5 rounded-full">
+                  <CheckCircle className="size-5 text-primary/70" />
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
 
           {/* Filters and Search */}
           <div className="flex flex-col md:flex-row gap-4 mb-6">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50" />
-              <Input 
-                placeholder="Buscar por aluno ou treino..." 
-                className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-white/40"
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/45" />
+              <Input
+                placeholder="Buscar por aluno ou treino..."
+                className="pl-10 bg-white/[0.06] border-white/[0.08] text-white placeholder:text-white/40 rounded-xl"
               />
             </div>
-            <div className="flex gap-2">
-              <Button 
-                variant={filter === "all" ? "default" : "outline"}
-                onClick={() => setFilter("all")}
-                className={filter === "all" ? "bg-primary text-primary-foreground" : ""}
-              >
-                Todos
-              </Button>
-              <Button 
-                variant={filter === "draft" ? "default" : "outline"}
-                onClick={() => setFilter("draft")}
-                className={filter === "draft" ? "bg-primary text-primary-foreground" : ""}
-              >
-                Draft
-              </Button>
-              <Button 
-                variant={filter === "pending" ? "default" : "outline"}
-                onClick={() => setFilter("pending")}
-                className={filter === "pending" ? "bg-primary text-primary-foreground" : ""}
-              >
-                Pendentes
-              </Button>
-              <Button 
-                variant={filter === "active" ? "default" : "outline"}
-                onClick={() => setFilter("active")}
-                className={filter === "active" ? "bg-primary text-primary-foreground" : ""}
-              >
-                Ativos
-              </Button>
+            <div className="flex flex-wrap gap-1.5">
+              {(["all", "draft", "pending", "active"] as const).map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setFilter(f)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                    filter === f
+                      ? "bg-primary/80 text-primary-foreground"
+                      : "bg-white/[0.06] text-white/60 hover:text-white/80 border border-white/[0.06]"
+                  }`}
+                >
+                  {f === "all" ? "Todos" : f === "draft" ? "Draft" : f === "pending" ? "Pendentes" : "Ativos"}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Reviews List */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredReviews.map((review) => (
-              <Card key={review.id} variant="glass" className="border-white/10 hover:shadow-glass transition-all">
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <div className="bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center">
-                        <span className="font-bold text-primary">{review.studentAvatar}</span>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg text-white">{review.studentName}</h3>
-                        <p className="text-sm text-white/60">{review.createdAt}</p>
-                      </div>
+              <div
+                key={review.id}
+                className="glass-card-3d rounded-2xl p-4 sm:p-5"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-white/[0.08] rounded-full size-10 flex items-center justify-center">
+                      <span className="text-sm font-semibold text-primary/80">{review.studentAvatar}</span>
                     </div>
-                    {getStatusBadge(review.status)}
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="h-4 w-4 text-primary" />
-                      <h4 className="font-semibold text-white">{review.workoutName}</h4>
-                      <Badge variant="secondary" className="text-xs">
-                        Gerado por IA
-                      </Badge>
+                    <div>
+                      <h3 className="font-medium text-white/95">{review.studentName}</h3>
+                      <p className="text-[11px] text-white/45">{review.createdAt}</p>
                     </div>
-                    <p className="text-sm text-white/60">{review.description}</p>
                   </div>
-
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      className="flex-1 border-white/20 hover:bg-white/10 text-white"
-                      onClick={() => navigate("/trainer/edit-workout")}
-                    >
-                      <Eye className="mr-2 h-4 w-4" />
-                      Revisar
-                    </Button>
-                    <Button variant="default" size="lg" className="flex-1" onClick={() => navigate("/trainer/edit-workout")}>
-                      <ThumbsUp className="mr-2 h-4 w-4" />
-                      Aprovar
-                    </Button>
-                  </div>
+                  {getStatusLabel(review.status)}
                 </div>
-              </Card>
+                <div className="mb-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles className="size-3.5 text-primary/60" />
+                    <h4 className="font-medium text-white/90 text-sm">{review.workoutName}</h4>
+                    <span className="text-[10px] font-medium text-white/45">Gerado por IA</span>
+                  </div>
+                  <p className="text-xs text-white/55">{review.description}</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex-1 text-white/70 hover:text-white hover:bg-white/[0.06]"
+                    onClick={() => navigate("/trainer/edit-workout")}
+                  >
+                    <Eye className="mr-2 size-3.5" />
+                    Revisar
+                  </Button>
+                  <Button variant="default" size="sm" className="flex-1 rounded-xl font-medium" onClick={() => navigate("/trainer/edit-workout")}>
+                    <ThumbsUp className="mr-2 size-3.5" />
+                    Aprovar
+                  </Button>
+                </div>
+              </div>
             ))}
           </div>
         </div>

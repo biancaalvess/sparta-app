@@ -45,7 +45,7 @@ export function StudentProfile() {
         </div>
 
         <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-5">
-          <div className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-white/[0.08] p-2.5 rounded-full shrink-0">
                 <User className="h-7 w-7 sm:h-8 sm:w-8 text-primary/80" />
@@ -83,7 +83,7 @@ export function StudentProfile() {
             </div>
           </div>
 
-          <div className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <h3 className="text-sm font-medium text-white/90 tracking-tight mb-3">Conta</h3>
             <Button
               variant="ghost"

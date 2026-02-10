@@ -70,7 +70,7 @@ export function StudentDashboard() {
             </Button>
           </div>
           {/* Streak Counter */}
-          <div className="flex items-center gap-3 glass-card border-white/10 p-3 sm:p-4 rounded-xl">
+          <div className="flex items-center gap-3 glass-card-3d p-3 sm:p-4 rounded-xl">
             <div className="bg-primary/20 p-2 sm:p-3 rounded-full shrink-0">
               <Flame className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
@@ -87,7 +87,7 @@ export function StudentDashboard() {
         {/* Main Content */}
         <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Today's Workout Card */}
-        <Card variant="glass" className="overflow-hidden border-white/10 hover:shadow-glass transition-shadow">
+        <Card variant="glass" className="overflow-hidden border-white/10 transition-shadow">
           <div
             className="relative min-h-[200px] sm:min-h-[220px] lg:min-h-[240px] p-4 sm:p-6 lg:p-6 rounded-xl bg-cover bg-center"
             style={
@@ -152,9 +152,7 @@ export function StudentDashboard() {
         </Card>
 
         {/* Dieta de Hoje */}
-        <div
-          className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm"
-        >
+        <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3 mb-3">
             <h3 className="text-sm font-medium text-white/90 tracking-tight">
               Dieta de Hoje
@@ -168,6 +166,7 @@ export function StudentDashboard() {
               <ArrowUpRight className="size-3.5" />
             </button>
           </div>
+          {/* Calorias */}
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="text-2xl sm:text-3xl font-semibold text-white tabular-nums tracking-tight">
               {macros.calories.current.toLocaleString("pt-BR")}
@@ -177,18 +176,58 @@ export function StudentDashboard() {
             </span>
           </div>
           <p className="text-[11px] text-white/45 mb-3">Meta diária</p>
-          <div className="h-1.5 w-full rounded-full bg-white/[0.08] overflow-hidden">
+          <div className="h-1.5 w-full rounded-full bg-white/[0.08] overflow-hidden mb-4">
             <div
               className="h-full rounded-full bg-primary/70 transition-all duration-500"
               style={{ width: `${Math.min(100, (macros.calories.current / macros.calories.target) * 100)}%` }}
             />
           </div>
+          {/* Proteína, Carboidratos, Gorduras */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="bg-white/[0.04] rounded-lg p-2.5 flex flex-col gap-1">
+              <span className="text-[10px] font-medium text-white/50 tracking-wider">Proteína</span>
+              <span className="text-sm font-semibold text-white/95 tabular-nums">
+                {macros.protein.current}/{macros.protein.target}
+                <span className="text-[10px] font-normal text-white/50 ml-0.5">{macros.protein.unit}</span>
+              </span>
+              <div className="h-1 rounded-full bg-white/[0.08] overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary/70"
+                  style={{ width: `${Math.min(100, (macros.protein.current / macros.protein.target) * 100)}%` }}
+                />
+              </div>
+            </div>
+            <div className="bg-white/[0.04] rounded-lg p-2.5 flex flex-col gap-1">
+              <span className="text-[10px] font-medium text-white/50 tracking-wider">Carboidratos</span>
+              <span className="text-sm font-semibold text-white/95 tabular-nums">
+                {macros.carbs.current}/{macros.carbs.target}
+                <span className="text-[10px] font-normal text-white/50 ml-0.5">{macros.carbs.unit}</span>
+              </span>
+              <div className="h-1 rounded-full bg-white/[0.08] overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary/70"
+                  style={{ width: `${Math.min(100, (macros.carbs.current / macros.carbs.target) * 100)}%` }}
+                />
+              </div>
+            </div>
+            <div className="bg-white/[0.04] rounded-lg p-2.5 flex flex-col gap-1">
+              <span className="text-[10px] font-medium text-white/50 tracking-wider">Gorduras</span>
+              <span className="text-sm font-semibold text-white/95 tabular-nums">
+                {macros.fats.current}/{macros.fats.target}
+                <span className="text-[10px] font-normal text-white/50 ml-0.5">{macros.fats.unit}</span>
+              </span>
+              <div className="h-1 rounded-full bg-white/[0.08] overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary/70"
+                  style={{ width: `${Math.min(100, (macros.fats.current / macros.fats.target) * 100)}%` }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Treinos Recentes — clean e elegante */}
-        <div
-          className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm"
-        >
+        {/* Treinos Recentes */}
+        <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3 mb-3">
             <h3 className="text-sm font-medium text-white/90 tracking-tight">
               Treinos Recentes

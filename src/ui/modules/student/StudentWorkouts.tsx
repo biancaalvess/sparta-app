@@ -36,7 +36,7 @@ export function StudentWorkouts() {
         </div>
 
         <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 lg:space-y-8">
-          <div className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="min-w-0 flex-1">
                 <p className="text-[11px] font-medium text-primary/80 uppercase tracking-wider mb-1">Treino de hoje</p>
@@ -61,7 +61,7 @@ export function StudentWorkouts() {
             </Button>
           </div>
 
-          <div className="rounded-2xl p-4 sm:p-5 bg-white/[0.06] border border-white/[0.06] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-sm">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <h3 className="text-sm font-medium text-white/90 tracking-tight mb-3">Todos os treinos</h3>
             <div className="space-y-1.5">
               {allWorkouts.map((workout) => (

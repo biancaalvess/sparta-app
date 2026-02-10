@@ -17,7 +17,7 @@ function Card({
         "text-card-foreground flex flex-col gap-6 rounded-xl transition-all duration-200",
         variant === "default" &&
           "bg-card border border-border",
-        variant === "glass" && "glass-card border-0",
+        variant === "glass" && "glass-card-3d border-0",
         className,
       )}
       {...props}

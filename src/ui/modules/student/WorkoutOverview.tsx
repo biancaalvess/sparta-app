@@ -95,7 +95,7 @@ export function WorkoutOverviewScreen({
         />
 
         {/* Header sobreposto com fundo translúcido */}
-        <header className="absolute inset-x-0 top-0 z-10 glass-card border-0 rounded-none rounded-b-2xl px-4 sm:px-6 py-3 flex items-center justify-between max-w-4xl mx-auto">
+        <header className="absolute inset-x-0 top-0 z-10 glass-card-3d border-0 rounded-none rounded-b-2xl px-4 sm:px-6 py-3 flex items-center justify-between max-w-4xl mx-auto">
           <button
             type="button"
             onClick={onBack}

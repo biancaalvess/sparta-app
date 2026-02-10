@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Card } from "@/ui/components/ui/card";
 import { Button } from "@/ui/components/ui/button";
-import { Badge } from "@/ui/components/ui/badge";
 import { Input } from "@/ui/components/ui/input";
 import {
   Select,
@@ -113,16 +111,12 @@ export function ProfessionalStudents() {
     return list;
   })();
 
-  const getStatusBadge = (status: Student["status"]) => {
+  const getStatusLabel = (status: Student["status"]) => {
     switch (status) {
-      case "active":
-        return <Badge className="bg-success/20 text-success border-success/30">Ativo</Badge>;
-      case "pending":
-        return <Badge className="bg-primary/20 text-primary border-primary/30">Pendente</Badge>;
-      case "inactive":
-        return <Badge className="bg-muted text-muted-foreground border-muted">Inativo</Badge>;
-      default:
-        return null;
+      case "active": return <span className="text-[11px] font-medium text-primary/80">Ativo</span>;
+      case "pending": return <span className="text-[11px] font-medium text-white/50">Pendente</span>;
+      case "inactive": return <span className="text-[11px] font-medium text-white/40">Inativo</span>;
+      default: return null;
     }
   };
 
@@ -227,8 +221,8 @@ export function ProfessionalStudents() {
               <PanelLeftOpen className="h-6 w-6" />
             </button>
             <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl mb-1 sm:mb-2 truncate text-white">Meus alunos</h1>
-              <p className="text-white/70 text-sm sm:text-base">Lista de alunos vinculados ao seu perfil</p>
+              <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 truncate text-white tracking-tight">Meus alunos</h1>
+              <p className="text-white/50 text-sm">Lista de alunos vinculados ao seu perfil</p>
             </div>
             <Button
               size="icon"
@@ -246,16 +240,16 @@ export function ProfessionalStudents() {
           {/* Barra de ferramentas: busca + contagem + ação */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
             <div className="flex-1 w-full sm:max-w-md relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50 pointer-events-none" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-white/45 pointer-events-none" />
               <Input
                 placeholder="Buscar por nome ou e-mail..."
-                className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-white/40 h-10"
+                className="pl-10 bg-white/[0.06] border-white/[0.08] text-white placeholder:text-white/40 h-10 rounded-xl"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
             <div className="flex items-center gap-3 shrink-0">
-              <span className="text-sm text-white/60 whitespace-nowrap">
+              <span className="text-xs text-white/50 whitespace-nowrap">
                 {filteredStudents.length} {filteredStudents.length === 1 ? "aluno" : "alunos"}
               </span>
             </div>
@@ -338,69 +332,59 @@ export function ProfessionalStudents() {
           </div>
 
           {/* Lista de alunos */}
-          <section className="space-y-3" aria-label="Lista de alunos">
+          <section className="space-y-2" aria-label="Lista de alunos">
             {filteredStudents.map((student) => (
-              <Card
+              <div
                 key={student.id}
-                variant="glass"
-                className="border-white/10 hover:shadow-glass transition-all overflow-hidden"
+                className="glass-card-3d rounded-2xl p-4 sm:p-5"
               >
-                <div className="p-4 sm:p-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-4 min-w-0 flex-1">
-                    <div className="bg-primary/20 rounded-full w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
-                      <span className="font-bold text-sm sm:text-base text-primary">{student.avatar}</span>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="bg-white/[0.08] rounded-full size-10 sm:size-11 flex items-center justify-center shrink-0">
+                      <span className="text-sm font-semibold text-primary/80">{student.avatar}</span>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-semibold text-base sm:text-lg truncate text-white">{student.name}</h3>
-                      <p className="text-sm text-white/60 truncate mt-0.5">{student.email}</p>
-                      <div className="flex items-center gap-2 mt-2 flex-wrap gap-y-1">
-                        <Badge variant="secondary" className="text-xs font-normal">
-                          {student.plan}
-                        </Badge>
-                        <span className="text-xs text-muted-foreground">
-                          {student.frequency}x/semana
-                        </span>
+                      <h3 className="font-medium text-white/95 truncate">{student.name}</h3>
+                      <p className="text-xs text-white/50 truncate mt-0.5">{student.email}</p>
+                      <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                        <span className="text-[11px] text-white/45">{student.plan}</span>
+                        <span className="text-[11px] text-white/40">{student.frequency}x/semana</span>
                         {student.lastWorkout && student.lastWorkout !== "—" && (
-                          <span className="text-xs text-white/50">
-                            Último treino: {student.lastWorkout}
-                          </span>
+                          <span className="text-[11px] text-white/40">Último: {student.lastWorkout}</span>
                         )}
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-white/10 pt-4 sm:pt-0 sm:border-0">
-                    {getStatusBadge(student.status)}
+                  <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-white/[0.06] pt-3 sm:pt-0 sm:border-0">
+                    {getStatusLabel(student.status)}
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="sm"
-                      className="border-primary/30 hover:bg-primary/10 shrink-0"
+                      className="text-white/70 hover:text-white h-8 text-xs shrink-0"
                       onClick={() => setSelectedStudent(student)}
                     >
-                      <Eye className="h-4 w-4 sm:mr-2" />
-                      <span className="hidden sm:inline">Ver</span>
-                      <ChevronRight className="h-4 w-4 sm:ml-0.5" />
+                      <Eye className="size-3.5 sm:mr-1.5" />
+                      Ver
+                      <ChevronRight className="size-3.5 hidden sm:inline ml-0.5" />
                     </Button>
                   </div>
                 </div>
-              </Card>
+              </div>
             ))}
           </section>
 
           {filteredStudents.length === 0 && (
-            <div className="text-center py-16 px-4 rounded-lg border border-dashed border-border bg-muted/20">
-              <Users className="h-14 w-14 mx-auto mb-4 text-muted-foreground/50" />
-              <p className="text-muted-foreground font-medium">
+            <div className="text-center py-12 px-4 rounded-2xl border border-dashed border-white/[0.08] bg-white/[0.03]">
+              <Users className="size-12 mx-auto mb-3 text-white/30" />
+              <p className="text-white/70 font-medium text-sm">
                 Nenhum aluno encontrado
               </p>
-              <p className="text-sm text-muted-foreground mt-1">
+              <p className="text-xs text-white/45 mt-1">
                 {search ? `Não há resultados para "${search}".` : "Registre um novo aluno para começar."}
               </p>
               {!search && (
-                <Button
-                  className="mt-4"
-                  onClick={() => setNewStudentOpen(true)}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
+                <Button variant="default" size="sm" className="mt-4 rounded-xl font-medium" onClick={() => setNewStudentOpen(true)}>
+                  <Plus className="size-4 mr-2" />
                   Registrar aluno
                 </Button>
               )}
@@ -432,7 +416,7 @@ export function ProfessionalStudents() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-semibold text-base sm:text-lg text-foreground truncate">{selectedStudent.name}</h3>
-                      <div className="mt-1.5">{getStatusBadge(selectedStudent.status)}</div>
+                      <div className="mt-1.5">{getStatusLabel(selectedStudent.status)}</div>
                     </div>
                   </div>
 
@@ -460,8 +444,8 @@ export function ProfessionalStudents() {
                       </div>
                     )}
                     <div className="grid gap-1">
-                      <dt className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Plano</dt>
-                      <dd><Badge variant="secondary" className="font-normal">{selectedStudent.plan}</Badge></dd>
+                      <dt className="text-xs font-medium text-white/45">Plano</dt>
+                      <dd className="text-sm text-white/85">{selectedStudent.plan}</dd>
                     </div>
                     <div className="grid gap-1">
                       <dt className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Frequência</dt>

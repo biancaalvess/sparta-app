@@ -1,6 +1,4 @@
-import { Card } from "@/ui/components/ui/card";
 import { Button } from "@/ui/components/ui/button";
-import { Badge } from "@/ui/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -10,8 +8,6 @@ import {
   TableRow,
 } from "@/ui/components/ui/table";
 import {
-  LineChart,
-  Line,
   AreaChart,
   Area,
   XAxis,
@@ -100,14 +96,10 @@ export function AdminDashboard() {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="glass-card border-white/20 p-3 rounded-xl shadow-glass">
-          <p className="text-sm font-medium mb-1 text-white">{payload[0].payload.month}</p>
-          <p className="text-sm text-primary">
-            Receita: R$ {payload[0].value.toLocaleString()}
-          </p>
-          <p className="text-sm text-white/60">
-            Usuários: {payload[0].payload.users}
-          </p>
+        <div className="rounded-xl border border-white/[0.1] bg-[#1c1c1c]/95 backdrop-blur-sm p-2.5 shadow-lg">
+          <p className="text-xs font-medium text-white/90 mb-0.5">{payload[0].payload.month}</p>
+          <p className="text-xs text-primary/90">Receita: R$ {payload[0].value.toLocaleString()}</p>
+          <p className="text-[11px] text-white/50">Usuários: {payload[0].payload.users}</p>
         </div>
       );
     }
@@ -119,8 +111,8 @@ export function AdminDashboard() {
       {/* Sidebar */}
       <div className="fixed left-0 top-0 h-full w-64 glass-card border-r border-white/10 rounded-none p-6 hidden lg:block">
         <div className="mb-8">
-          <h1 className="text-2xl mb-1 text-primary">SPARTA AI</h1>
-          <p className="text-sm text-white/60">Admin Panel</p>
+          <h1 className="text-xl font-semibold text-primary/90 tracking-tight">Sparta AI</h1>
+          <p className="text-xs text-white/50">Admin</p>
         </div>
 
         <nav className="space-y-2">
@@ -170,68 +162,63 @@ export function AdminDashboard() {
         {/* Header */}
         <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl mb-2 text-white">Dashboard Administrativo</h1>
-            <p className="text-white/70 text-sm sm:text-base">Visão geral da plataforma e métricas</p>
+            <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 text-white tracking-tight">Dashboard Administrativo</h1>
+            <p className="text-white/50 text-sm">Visão geral da plataforma e métricas</p>
           </div>
         </div>
 
         <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 lg:space-y-8">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card variant="glass" className="p-6 border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-white/60">MRR</p>
-                <div className="bg-primary/20 p-2 rounded-full">
-                  <DollarSign className="h-5 w-5 text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-xs font-medium text-white/50">MRR</p>
+                <div className="bg-white/[0.08] p-2 rounded-full">
+                  <DollarSign className="size-4 text-primary/70" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-white mb-1">R$ {stats.mrr.toLocaleString()}</p>
-              <div className="flex items-center gap-1 text-sm">
-                <TrendingUp className="h-4 w-4 text-success" />
-                <span className="text-success">+{stats.growth}%</span>
-                <span className="text-white/60">vs mês anterior</span>
+              <p className="text-xl font-semibold text-white/95 tabular-nums">R$ {stats.mrr.toLocaleString()}</p>
+              <div className="flex items-center gap-1 text-xs mt-0.5">
+                <TrendingUp className="size-3.5 text-primary/70" />
+                <span className="text-primary/80">+{stats.growth}%</span>
+                <span className="text-white/45">vs mês anterior</span>
               </div>
-            </Card>
-
-            <Card variant="glass" className="p-6 border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-white/60">Alunos Ativos</p>
-                <div className="bg-primary/20 p-2 rounded-full">
-                  <Users className="h-5 w-5 text-primary" />
+            </div>
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-xs font-medium text-white/50">Alunos ativos</p>
+                <div className="bg-white/[0.08] p-2 rounded-full">
+                  <Users className="size-4 text-primary/70" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-white">{stats.activeStudents}</p>
-              <p className="text-sm text-white/60 mt-1">Total de estudantes</p>
-            </Card>
-
-            <Card variant="glass" className="p-6 border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-white/60">Personais Ativos</p>
-                <div className="bg-primary/20 p-2 rounded-full">
-                  <UserCheck className="h-5 w-5 text-primary" />
+              <p className="text-xl font-semibold text-white/95 tabular-nums">{stats.activeStudents}</p>
+              <p className="text-[11px] text-white/45 mt-0.5">Total de estudantes</p>
+            </div>
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-xs font-medium text-white/50">Personais ativos</p>
+                <div className="bg-white/[0.08] p-2 rounded-full">
+                  <UserCheck className="size-4 text-primary/70" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-white">{stats.activeTrainers}</p>
-              <p className="text-sm text-white/60 mt-1">Total de treinadores</p>
-            </Card>
-
-            <Card variant="glass" className="p-6 border-white/10">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-white/60">Crescimento</p>
-                <div className="bg-success/20 p-2 rounded-full">
-                  <Activity className="h-5 w-5 text-success" />
+              <p className="text-xl font-semibold text-white/95 tabular-nums">{stats.activeTrainers}</p>
+              <p className="text-[11px] text-white/45 mt-0.5">Total de treinadores</p>
+            </div>
+            <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-1.5">
+                <p className="text-xs font-medium text-white/50">Crescimento</p>
+                <div className="bg-white/[0.08] p-2 rounded-full">
+                  <Activity className="size-4 text-primary/70" />
                 </div>
               </div>
-              <p className="text-3xl font-bold text-white">{stats.growth}%</p>
-              <p className="text-sm text-white/60 mt-1">Últimos 30 dias</p>
-            </Card>
+              <p className="text-xl font-semibold text-white/95 tabular-nums">{stats.growth}%</p>
+              <p className="text-[11px] text-white/45 mt-0.5">Últimos 30 dias</p>
+            </div>
           </div>
 
-          {/* Revenue Chart */}
-          <Card variant="glass" className="p-6 border-white/10">
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-1 text-white">Crescimento de Receita</h3>
-              <p className="text-sm text-white/60">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-white/90 tracking-tight">Crescimento de receita</h3>
+              <p className="text-[11px] text-white/45 mt-0.5">
                 Evolução mensal da receita e novos usuários
               </p>
             </div>
@@ -264,74 +251,52 @@ export function AdminDashboard() {
                 />
               </AreaChart>
             </ResponsiveContainer>
-          </Card>
+          </div>
 
-          {/* Users Table */}
-          <Card variant="glass" className="p-6 border-white/10">
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-1 text-white">Usuários Recentes</h3>
-              <p className="text-sm text-white/60">
+          <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-white/90 tracking-tight">Usuários recentes</h3>
+              <p className="text-[11px] text-white/45 mt-0.5">
                 Últimos usuários cadastrados na plataforma
               </p>
             </div>
-            <div className="rounded-xl border border-white/10 overflow-hidden">
+            <div className="rounded-xl border border-white/[0.08] overflow-hidden">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-white/5 hover:bg-white/5 border-white/10">
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Tipo</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Data de Cadastro</TableHead>
-                    <TableHead className="text-right">Ações</TableHead>
+                  <TableRow className="bg-white/[0.04] hover:bg-white/[0.04] border-white/[0.06]">
+                    <TableHead className="text-xs font-medium text-white/50">Nome</TableHead>
+                    <TableHead className="text-xs font-medium text-white/50">Email</TableHead>
+                    <TableHead className="text-xs font-medium text-white/50">Tipo</TableHead>
+                    <TableHead className="text-xs font-medium text-white/50">Status</TableHead>
+                    <TableHead className="text-xs font-medium text-white/50">Data</TableHead>
+                    <TableHead className="text-right text-xs font-medium text-white/50">Ações</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {recentUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium text-white">{user.name}</TableCell>
-                      <TableCell className="text-white/70">{user.email}</TableCell>
+                    <TableRow key={user.id} className="border-white/[0.06]">
+                      <TableCell className="font-medium text-white/90 text-sm">{user.name}</TableCell>
+                      <TableCell className="text-white/60 text-sm">{user.email}</TableCell>
                       <TableCell>
-                        <Badge 
-                          variant="secondary"
-                          className={
-                            user.type === "trainer" 
-                              ? "bg-primary/20 text-primary border-primary/30" 
-                              : "bg-muted text-muted-foreground"
-                          }
-                        >
+                        <span className={`text-[11px] font-medium ${user.type === "trainer" ? "text-primary/80" : "text-white/50"}`}>
                           {user.type === "trainer" ? "Personal" : "Aluno"}
-                        </Badge>
+                        </span>
                       </TableCell>
                       <TableCell>
-                        {user.status === "active" ? (
-                          <Badge className="bg-success/20 text-success border-success/30">
-                            Ativo
-                          </Badge>
-                        ) : (
-                          <Badge variant="secondary" className="bg-muted text-muted-foreground">
-                            Inativo
-                          </Badge>
-                        )}
+                        <span className={`text-[11px] font-medium ${user.status === "active" ? "text-primary/80" : "text-white/45"}`}>
+                          {user.status === "active" ? "Ativo" : "Inativo"}
+                        </span>
                       </TableCell>
-                      <TableCell className="text-white/60">
+                      <TableCell className="text-white/50 text-sm">
                         {new Date(user.joinedAt).toLocaleDateString("pt-BR")}
                       </TableCell>
                       <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            className="hover:bg-muted"
-                          >
-                            <UserCheck className="h-4 w-4" />
+                        <div className="flex justify-end gap-1">
+                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-white/50 hover:text-white/80">
+                            <UserCheck className="size-3.5" />
                           </Button>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            className="hover:bg-destructive/10 hover:text-destructive"
-                          >
-                            <Ban className="h-4 w-4" />
+                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-white/50 hover:text-destructive/80">
+                            <Ban className="size-3.5" />
                           </Button>
                         </div>
                       </TableCell>
@@ -340,7 +305,7 @@ export function AdminDashboard() {
                 </TableBody>
               </Table>
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </div>
