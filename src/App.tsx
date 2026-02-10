@@ -7,6 +7,7 @@ import { Login } from './ui/modules/auth/Login';
 
 // Aluno (Student)
 import { StudentDashboard } from './ui/modules/student/StudentDashboard';
+import { StudentWorkouts } from './ui/modules/student/StudentWorkouts';
 import WorkoutOverview from './ui/modules/student/WorkoutOverview';
 import DailyDiet from './ui/modules/student/DailyDiet';
 
@@ -38,7 +39,16 @@ const App: React.FC = () => {
               <StudentDashboard />
             </PrivateRoute>
           } />
-          {/* Rotas que você clicou e deram erro agora vão funcionar */}
+          <Route path="/student/workouts" element={
+            <PrivateRoute allowedRole="STUDENT">
+              <StudentWorkouts />
+            </PrivateRoute>
+          } />
+          <Route path="/student/workout" element={
+            <PrivateRoute allowedRole="STUDENT">
+              <WorkoutOverview />
+            </PrivateRoute>
+          } />
           <Route path="/workout-overview" element={
             <PrivateRoute allowedRole="STUDENT">
               <WorkoutOverview />

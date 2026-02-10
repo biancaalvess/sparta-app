@@ -1,4 +1,7 @@
 
+/** Cole aqui o link da imagem ilustrativa do card "Treino de hoje" */
+export const TREINO_HOJE_ILLUSTRATION_URL = '';
+
 export const IMAGES = {
   LOGO_SHIELD: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAD7jTlj1mFLyhrTeGLyxo3LEEaKcFU-9CnUXYaXaEPygBDOd5lI-T9a_lUfB_1ORDvURynPeIOc6LhF9MPU6Wfhq2eST3HsX4GjRoqLTB__w_csbMbBRw7F23c2Zivf4uO1mTgQRYRpZApHSaw3htxFzA1YxxYE5MRR9zZfT4y9lMuqvXiLrHXXKHhPiXT7NU_20tow_qGhwE1_BWklhL3Z-CCP6khPSkZDV2t0R-gK-7ZjQ2MCzQkYiJT7ZKUaQhJWiDZctCpp2Xs',
   SPLASH_BG: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDt36edbKnEzQyCo9C6XLGGnBvlK8iZp_T3G5BPMWTD3PvsjWTkQ-shGsc_Ix0Ax0qSJUJl8uFd9FX_M_hhJLNmpR8Z9UM9Jo5uwp36u69AjBDDM_ZR69HJiUXS126P2oLOKnLLjWrcnQOdQifEnqdk6lLCXqHbatQHJYU5U_dAVkWJP7RecYocddkkvMQeapY8GxGUfb6LHM0h5d2LDHoCLuiXV4TkcNNO7cpqJzW_fNhqIJmpo5VxGKpkrbKUu-y_6shKN0swH3C1',

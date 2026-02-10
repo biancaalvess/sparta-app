@@ -15,6 +15,7 @@ import {
   User
 } from "lucide-react";
 import { useNavigate } from "react-router";
+import { TREINO_HOJE_ILLUSTRATION_URL } from "@/shared/constants/images";
 
 export function StudentDashboard() {
   const navigate = useNavigate();
@@ -45,21 +46,11 @@ export function StudentDashboard() {
     <div className="min-h-screen bg-background pb-20 flex flex-col items-center">
       {/* Container responsivo: centralizado em monitores, full width em mobile */}
       <div className="w-full max-w-4xl">
-        {/* Header */}
+        {/* Header - sem botão perfil (já existe na navegação inferior) */}
         <div className="bg-card border-b border-border p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4 gap-3">
-            <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl mb-1 truncate">Olá, Atleta! 💪</h1>
-              <p className="text-muted-foreground text-sm sm:text-base">Vamos dominar o dia</p>
-            </div>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => navigate("/")}
-              className="shrink-0"
-            >
-              <User className="h-5 w-5 sm:h-6 sm:w-6" />
-            </Button>
+          <div className="mb-4">
+            <h1 className="text-2xl sm:text-3xl mb-1 truncate">Olá, Atleta! 💪</h1>
+            <p className="text-muted-foreground text-sm sm:text-base">Vamos dominar o dia</p>
           </div>
           
           {/* Streak Counter */}
@@ -93,7 +84,7 @@ export function StudentDashboard() {
               <Dumbbell className="h-10 w-10 sm:h-12 sm:w-12 text-primary/40 shrink-0" />
             </div>
             
-            <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div className="relative z-10 flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div className="flex items-center gap-2 text-xs sm:text-sm">
                 <TrendingUp className="h-4 w-4 text-primary shrink-0" />
                 <span>{todayWorkout.exercises} exercícios</span>
@@ -104,7 +95,7 @@ export function StudentDashboard() {
               </div>
             </div>
 
-            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 sm:h-14 text-sm sm:text-base"
+            <Button className="relative z-10 w-full bg-primary hover:bg-primary/90 text-primary-foreground h-12 sm:h-14 text-sm sm:text-base"
               onClick={() => navigate("/student/workout")}
             >
               <PlayCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
