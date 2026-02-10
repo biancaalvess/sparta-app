@@ -4,7 +4,6 @@ import {
   User, 
   Users, 
   Shield, 
-  Dumbbell,
   Zap,
   ArrowRight 
 } from "lucide-react";
@@ -62,15 +61,15 @@ export function Login() {
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
       <div className="w-full max-w-4xl">
         {/* Logo & Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="bg-primary/20 p-3 rounded-full">
-              <Dumbbell className="h-8 w-8 text-primary" />
-            </div>
-            <h1 className="text-5xl tracking-tight font-display font-bold">
-              SPARTA <span className="text-primary font-display font-bold">FITNESS AI</span>
-            </h1>
-          </div>
+        <div className="text-center mb-12 bg-transparent">
+          <img
+            src="/icon2.png"
+            alt="Sparta Fitness AI"
+            className="mx-auto mb-4 h-28 w-28 sm:h-36 sm:w-36 object-contain"
+          />
+          <h1 className="text-4xl sm:text-5xl tracking-tight font-display font-bold">
+            SPARTA <span className="text-primary font-display font-bold">FITNESS AI</span>
+          </h1>
           <p className="text-xl text-muted-foreground">
             Treinamento inteligente para guerreiros modernos
           </p>
@@ -119,9 +118,9 @@ export function Login() {
             Selecione seu perfil para acessar a plataforma
           </p>
           <div className="flex items-center justify-center gap-6 mt-4 text-xs text-muted-foreground">
-            <span>🔥 Dark Mode First</span>
-            <span>⚡ IA Generativa</span>
-            <span>💪 Alta Performance</span>
+            <span>Dark Mode First</span>
+            <span>IA Generativa</span>
+            <span>Alta Performance</span>
           </div>
         </div>
       </div>
