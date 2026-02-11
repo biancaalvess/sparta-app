@@ -21,6 +21,9 @@ import { ProfessionalStudents } from './ui/modules/professional/ProfessionalStud
 import { AdminDashboard } from './ui/modules/admin/AdminDashboard';
 import { AdminReports } from './ui/modules/admin/AdminReports';
 
+// Common (multi-role)
+import { AIAssistant } from './ui/modules/common/AIAssistant';
+
 const PrivateRoute = ({ children, allowedRole }: { children: JSX.Element, allowedRole: string }) => {
   const userStr = localStorage.getItem('@sparta:user');
   if (!userStr) return <Navigate to="/login" replace />;
@@ -88,6 +91,11 @@ const App: React.FC = () => {
           <Route path="/dashboard/professional/students" element={
             <PrivateRoute allowedRole="PROFESSIONAL">
               <ProfessionalStudents />
+            </PrivateRoute>
+          } />
+          <Route path="/assistant" element={
+            <PrivateRoute allowedRole="PROFESSIONAL">
+              <AIAssistant />
             </PrivateRoute>
           } />
 

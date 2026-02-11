@@ -36,7 +36,7 @@ export function TrainerDashboard() {
   const floatingNavItems: FloatingNavItem[] = [
     { icon: <FileText />, label: "Revisões", onClick: () => {} },
     { icon: <Users />, label: "Meus Alunos", onClick: () => navigate("/dashboard/professional/students") },
-    { icon: <Sparkles />, label: "IA Assistente", onClick: () => {} },
+    { icon: <Sparkles />, label: "IA Assistente", onClick: () => navigate("/assistant") },
     { icon: <LogOut />, label: "Sair", onClick: () => navigate("/") },
   ];
 

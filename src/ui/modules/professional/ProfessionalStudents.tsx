@@ -89,7 +89,7 @@ export function ProfessionalStudents() {
   const floatingNavItems: FloatingNavItem[] = [
     { icon: <FileText />, label: "Revisões", onClick: () => navigate("/dashboard/professional") },
     { icon: <Users />, label: "Meus Alunos", onClick: () => {} },
-    { icon: <Sparkles />, label: "IA Assistente", onClick: () => {} },
+    { icon: <Sparkles />, label: "IA Assistente", onClick: () => navigate("/assistant") },
     {
       icon: <LogOut />,
       label: "Sair",
