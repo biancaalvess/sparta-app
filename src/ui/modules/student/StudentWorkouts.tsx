@@ -1,4 +1,5 @@
 import { Button } from "@/ui/components/ui/button";
+import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import {
   Dumbbell,
   PlayCircle,
@@ -22,6 +23,13 @@ function formatDuration(minutes: number): string {
 export function StudentWorkouts() {
   const navigate = useNavigate();
   const { todayWorkout, weekWithSlots, isLoading } = useStudentWorkoutPlan();
+
+  const floatingNavItems: FloatingNavItem[] = [
+    { icon: <Home />, label: "Início", onClick: () => navigate("/dashboard/student") },
+    { icon: <Dumbbell />, label: "Treinos", onClick: () => navigate("/student/workouts") },
+    { icon: <ChefHat />, label: "Dieta", onClick: () => navigate("/diet") },
+    { icon: <User />, label: "Perfil", onClick: () => navigate("/dashboard/perfil") },
+  ];
 
   return (
     <div className="min-h-screen bg-page-dark pb-20 sm:pb-24 flex flex-col items-center">
@@ -150,30 +158,7 @@ export function StudentWorkouts() {
         </div>
       </div>
 
-      {/* Bottom Navigation - safe area para notch/home */}
-      <nav
-        className="fixed bottom-0 left-0 right-0 glass-card-3d border-0 border-t border-white/10 rounded-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
-        style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
-      >
-        <div className="flex justify-around items-center min-h-14 sm:min-h-16 max-w-4xl mx-auto px-2 sm:px-4 lg:px-6 py-2">
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/dashboard/student")}>
-            <Home className="size-4 sm:size-5 shrink-0" />
-            <span className="text-[10px] sm:text-xs truncate">Início</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 touch-manipulation">
-            <Dumbbell className="size-4 sm:size-5 text-primary shrink-0" />
-            <span className="text-[10px] sm:text-xs text-primary truncate">Treinos</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/diet")}>
-            <ChefHat className="size-4 sm:size-5 shrink-0" />
-            <span className="text-[10px] sm:text-xs truncate">Dieta</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/dashboard/perfil")}>
-            <User className="size-4 sm:size-5 shrink-0" />
-            <span className="text-[10px] sm:text-xs truncate">Perfil</span>
-          </Button>
-        </div>
-      </nav>
+      <FloatingNav items={floatingNavItems} position="bottom-center" />
     </div>
   );
 }
