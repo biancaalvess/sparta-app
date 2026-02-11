@@ -9,6 +9,7 @@ import {
   User,
   Calendar,
   Clock,
+  MessageCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useStudentWorkoutPlan, getDayLabel } from "@/shared/hooks/useStudentWorkoutPlan";
@@ -108,6 +109,27 @@ export function StudentWorkouts() {
               </>
             )}
             </div>
+          </div>
+
+          {/* Solicitar ajuste ao personal */}
+          <div className="glass-card-3d rounded-2xl p-4 flex items-center justify-between gap-3 border border-white/10">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="size-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                <MessageCircle className="size-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">Precisa de um ajuste?</p>
+                <p className="text-[11px] text-white/50">Solicite alterações no seu plano de treino</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="shrink-0 border-primary/30 text-primary/90 hover:bg-primary/10"
+              onClick={() => alert("Solicitação enviada! Seu personal será notificado e entrará em contato em breve.")}
+            >
+              Solicitar ajuste
+            </Button>
           </div>
 
           {/* Semana: Segunda a Domingo */}
