@@ -20,6 +20,7 @@ import { ProfessionalStudents } from './ui/modules/professional/ProfessionalStud
 // Admin
 import { AdminDashboard } from './ui/modules/admin/AdminDashboard';
 import { AdminReports } from './ui/modules/admin/AdminReports';
+import { AdminUsers } from './ui/modules/admin/AdminUsers';
 
 // Common (multi-role)
 import { AIAssistant } from './ui/modules/common/AIAssistant';
@@ -108,6 +109,11 @@ const App: React.FC = () => {
           <Route path="/admin/reports" element={
             <PrivateRoute allowedRole="ADMIN">
               <AdminReports />
+            </PrivateRoute>
+          } />
+          <Route path="/admin/users" element={
+            <PrivateRoute allowedRole="ADMIN">
+              <AdminUsers />
             </PrivateRoute>
           } />
 

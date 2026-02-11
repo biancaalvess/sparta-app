@@ -33,11 +33,17 @@ export function TrainerDashboard() {
   const [filter, setFilter] = useState<"all" | "draft" | "pending" | "active">("all");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
 
+  const handleLogout = () => {
+    localStorage.removeItem("@sparta:user");
+    navigate("/", { replace: true });
+    window.location.reload();
+  };
+
   const floatingNavItems: FloatingNavItem[] = [
     { icon: <FileText />, label: "Revisões", onClick: () => {} },
     { icon: <Users />, label: "Meus Alunos", onClick: () => navigate("/dashboard/professional/students") },
     { icon: <Sparkles />, label: "IA Assistente", onClick: () => navigate("/assistant") },
-    { icon: <LogOut />, label: "Sair", onClick: () => navigate("/") },
+    { icon: <LogOut />, label: "Sair", onClick: handleLogout },
   ];
 
   const mockReviews: WorkoutReview[] = [
@@ -115,9 +121,20 @@ export function TrainerDashboard() {
   return (
     <div className="min-h-screen min-h-[100dvh] bg-page-dark">
       <div className="w-full max-w-5xl mx-auto">
-        <header className="glass-card-3d border-0 border-b border-white/10 rounded-none rounded-b-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
-          <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 text-white tracking-tight">Dashboard do Personal</h1>
-          <p className="text-white/50 text-xs sm:text-sm">Gerencie treinos e acompanhe seus alunos</p>
+        <header className="glass-card-3d border-0 border-b border-white/10 rounded-none rounded-b-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 text-white tracking-tight">Dashboard do Personal</h1>
+            <p className="text-white/50 text-xs sm:text-sm">Gerencie treinos e acompanhe seus alunos</p>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleLogout}
+            className="shrink-0 size-10 sm:size-11 min-h-[44px] min-w-[44px] text-white/60 hover:text-white touch-manipulation rounded-lg"
+            title="Sair"
+          >
+            <LogOut className="size-5 sm:size-6" />
+          </Button>
         </header>
 
         <div className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 pb-24">
