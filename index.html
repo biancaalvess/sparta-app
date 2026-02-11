@@ -228,6 +228,67 @@
         position: relative;
         z-index: 1;
       }
+
+      /* AI Assistant — estética Aura AI */
+      @keyframes ai-orbe-pulse {
+        0%, 100% { opacity: 0.7; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+      }
+      @keyframes ai-scan-h {
+        0% { transform: translateX(-100%); opacity: 0; }
+        5% { opacity: 0.6; }
+        95% { opacity: 0.6; }
+        100% { transform: translateX(100%); opacity: 0; }
+      }
+      .ai-aura-bg {
+        background: radial-gradient(ellipse 80% 70% at 50% 100%, rgba(213, 159, 57, 0.08) 0%, rgba(176, 130, 45, 0.04) 30%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 50% 50%, rgba(213, 159, 57, 0.05) 0%, transparent 50%);
+      }
+      .ai-orbe-central {
+        position: absolute;
+        width: min(60vmin, 280px);
+        height: min(60vmin, 280px);
+        left: 50%;
+        top: 45%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(230, 180, 80, 0.2) 0%, rgba(213, 159, 57, 0.15) 40%, rgba(176, 130, 45, 0.1) 70%, transparent 100%);
+        filter: blur(40px);
+        pointer-events: none;
+        animation: ai-orbe-pulse 6s ease-in-out infinite;
+      }
+      .ai-orbe-bubble {
+        width: 12px;
+        height: 12px;
+        min-width: 12px;
+        min-height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(230, 180, 80, 0.95) 0%, rgba(213, 159, 57, 0.9) 50%, rgba(176, 130, 45, 0.8) 100%);
+        box-shadow: 0 0 12px rgba(213, 159, 57, 0.5);
+      }
+      .ai-panel-aura {
+        background: rgba(23, 21, 18, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 0 1px rgba(213, 159, 57, 0.08), 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+      }
+      .ai-message-assistant {
+        background: linear-gradient(135deg, rgba(30, 27, 22, 0.95) 0%, rgba(23, 21, 18, 0.98) 100%);
+        border: 1px solid rgba(213, 159, 57, 0.2);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+      }
+      .ai-message-user {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .ai-input-aura {
+        background: rgba(23, 21, 18, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 24px;
+      }
+      .ai-input-aura:focus-within {
+        border-color: rgba(213, 159, 57, 0.35);
+        box-shadow: 0 0 0 1px rgba(213, 159, 57, 0.15);
+      }
     </style>
     <script type="importmap">
       {
