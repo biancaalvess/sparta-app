@@ -93,39 +93,44 @@ export function WorkoutOverviewScreen({
   const heroImage = workout.exercises[0]?.image || IMAGES.WORKOUT_MAIN;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] bg-page-dark flex flex-col">
-      {/* Header: treino definido pelo personal */}
-      <header className="sticky top-0 z-30 glass-card-3d border-0 rounded-b-2xl border-b border-white/10 flex items-center justify-between w-full max-w-4xl mx-auto px-4 py-3 sm:px-6 sm:py-4 lg:px-8 shrink-0">
-        <button
-          type="button"
-          onClick={onBack}
-          className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-full text-white hover:bg-white/10 active:bg-white/15 transition-colors touch-manipulation"
-          aria-label="Voltar"
-        >
-          <ArrowLeft className="size-5 sm:size-6" />
-        </button>
-        <span className="text-white/90 text-xs sm:text-sm font-medium truncate max-w-[50%] sm:max-w-[40%] mx-1 px-3 py-1.5 rounded-xl bg-primary/20 border border-primary/30">
-          Meu treino
-        </span>
-        <div className="flex size-10 sm:size-11 shrink-0 items-center justify-center">
-          {instructorAvatarUrl ? (
-            <img
-              src={instructorAvatarUrl}
-              alt=""
-              className="size-8 sm:size-9 rounded-full object-cover border-2 border-white/30"
-            />
-          ) : (
-            <div className="size-8 sm:size-9 rounded-full bg-primary/30 border-2 border-primary/50 flex items-center justify-center">
-              <Dumbbell className="size-4 sm:size-5 text-primary" />
+    <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col">
+      {/* Header — mesmo formato do dashboard (card arredondado) */}
+      <div className="sticky top-0 z-30 w-full shrink-0 px-4 pt-4 sm:px-6 sm:pt-4 lg:px-8 pb-2">
+        <div className="max-w-4xl mx-auto">
+          <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-center justify-between gap-3">
+            <button
+              type="button"
+              onClick={onBack}
+              className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-full text-white hover:bg-white/10 active:bg-white/15 transition-colors touch-manipulation"
+              aria-label="Voltar"
+            >
+              <ArrowLeft className="size-5 sm:size-6" />
+            </button>
+            <div className="min-w-0 flex-1 text-center sm:text-left">
+              <h1 className="text-2xl sm:text-3xl mb-0.5 truncate text-white font-bold">Meu treino</h1>
+              <p className="text-white/70 text-sm sm:text-base truncate">Visão geral do treino</p>
             </div>
-          )}
+            <div className="flex size-10 sm:size-11 shrink-0 items-center justify-center">
+              {instructorAvatarUrl ? (
+                <img
+                  src={instructorAvatarUrl}
+                  alt=""
+                  className="size-8 sm:size-9 rounded-full object-cover border-2 border-white/30"
+                />
+              ) : (
+                <div className="size-8 sm:size-9 rounded-full bg-primary/30 border-2 border-primary/50 flex items-center justify-center">
+                  <Dumbbell className="size-4 sm:size-5 text-primary" />
+                </div>
+              )}
+            </div>
+          </header>
         </div>
-      </header>
+      </div>
 
-      <main className="flex-1 overflow-y-auto overflow-x-hidden pb-32 sm:pb-36 lg:pb-40">
-        {/* Hero: imagem com semi-transparência no final */}
-        <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4">
-          <div className="relative w-full aspect-[16/10] sm:aspect-[2/1] max-h-[38vh] sm:max-h-[44vh] rounded-2xl overflow-hidden bg-black/40 shadow-xl">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden pb-32 sm:pb-36 lg:pb-40 w-full">
+        {/* Hero: mesma largura e cantos do header (padronizado) */}
+        <div className="w-full max-w-4xl mx-auto px-4 pt-2 sm:px-6 sm:pt-4 lg:px-8">
+          <div className="relative w-full aspect-[16/10] sm:aspect-[21/9] min-h-[28vh] sm:min-h-[32vh] max-h-[40vh] sm:max-h-[44vh] rounded-2xl overflow-hidden bg-black/40 border border-white/10">
             <img
               src={heroImage}
               alt=""
@@ -133,7 +138,7 @@ export function WorkoutOverviewScreen({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
             <div
-              className="absolute inset-x-0 bottom-0 h-20 sm:h-24 lg:h-28 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-16 sm:h-20 lg:h-24 pointer-events-none"
               style={{
                 background: "linear-gradient(to bottom, transparent 0%, rgba(15, 20, 22, 0.6) 40%, rgba(15, 20, 22, 0.98) 100%)",
               }}
@@ -143,7 +148,7 @@ export function WorkoutOverviewScreen({
 
         <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Sticky: nome do treino (passado pelo personal) + progress bar */}
-          <div className="sticky top-[56px] sm:top-[64px] z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-page-dark/98 backdrop-blur-md border-b border-white/5 space-y-3 sm:space-y-4">
+          <div className="sticky top-[72px] sm:top-[88px] z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-page-dark/98 backdrop-blur-md border-b border-white/5 space-y-3 sm:space-y-4">
             <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-[1.75rem] xl:text-3xl font-bold text-white leading-tight tracking-tight break-words pr-2">
               {workout.name}
             </h1>
@@ -245,10 +250,10 @@ export function WorkoutOverviewScreen({
 
       {/* CTA fixo: safe area em mobile (notch/home) */}
       <footer
-        className="fixed bottom-0 left-0 right-0 z-20 px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 bg-gradient-to-t from-[#0f1416] via-[#0f1416]/98 to-transparent pointer-events-none"
+        className="fixed bottom-0 left-0 right-0 z-20 w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 bg-gradient-to-t from-[#0f1416] via-[#0f1416]/98 to-transparent pointer-events-none"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
       >
-        <div className="max-w-2xl mx-auto pointer-events-auto w-full">
+        <div className="max-w-2xl mx-auto pointer-events-auto w-full min-w-0">
           <Button
             variant="default"
             size="lg"

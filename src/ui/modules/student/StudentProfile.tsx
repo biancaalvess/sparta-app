@@ -36,15 +36,14 @@ export function StudentProfile() {
 
   return (
     <div className="min-h-screen bg-page-dark pb-20 sm:pb-24 flex flex-col items-center">
-      <div className="w-full max-w-4xl mx-auto">
-        <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6 lg:p-6">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 truncate text-white tracking-tight">Meu perfil</h1>
-            <p className="text-white/50 text-sm">Seus dados e preferências</p>
-          </div>
-        </div>
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header — mesmo formato do dashboard (card arredondado) */}
+        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5">
+          <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white font-bold">Meu perfil</h1>
+          <p className="text-white/70 text-sm sm:text-base">Seus dados e preferências</p>
+        </header>
 
-        <div className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-5">
+        <div className="py-4 sm:py-5 lg:py-6 space-y-4 sm:space-y-5">
           <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
             <div className="flex items-center gap-4 mb-4">
               <div className="bg-white/[0.08] p-2.5 rounded-full shrink-0">
@@ -97,26 +96,30 @@ export function StudentProfile() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 glass-card border-0 border-t border-white/10 rounded-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
-        <div className="flex justify-around items-center h-14 sm:h-16 max-w-4xl mx-auto px-2 sm:px-4 lg:px-6">
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/dashboard/student")}>
-            <Home className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+      {/* Bottom Navigation - safe area para notch/home */}
+      <nav
+        className="fixed bottom-0 left-0 right-0 glass-card-3d border-0 border-t border-white/10 rounded-none shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
+        style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+      >
+        <div className="flex justify-around items-center min-h-14 sm:min-h-16 max-w-4xl mx-auto px-2 sm:px-4 lg:px-6 py-2">
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/dashboard/student")}>
+            <Home className="size-4 sm:size-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Início</span>
           </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/student/workouts")}>
-            <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/student/workouts")}>
+            <Dumbbell className="size-4 sm:size-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Treinos</span>
           </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 text-white/70 hover:text-white" onClick={() => navigate("/diet")}>
-            <ChefHat className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation" onClick={() => navigate("/diet")}>
+            <ChefHat className="size-4 sm:size-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Dieta</span>
           </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0">
-            <User className="h-4 w-4 sm:h-5 sm:w-5 text-primary shrink-0" />
+          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 touch-manipulation">
+            <User className="size-4 sm:size-5 text-primary shrink-0" />
             <span className="text-[10px] sm:text-xs text-primary truncate">Perfil</span>
           </Button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 }

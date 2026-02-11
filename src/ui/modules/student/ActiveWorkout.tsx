@@ -27,12 +27,16 @@ export function WorkoutHeader({ title, elapsedSeconds }: WorkoutHeaderProps) {
   const timeStr = `${String(mm).padStart(2, "0")}:${String(ss).padStart(2, "0")}`;
 
   return (
-    <header className="sticky top-0 z-20 glass-card-3d border-0 rounded-none border-b border-white/10 flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 sm:py-4 max-w-4xl mx-auto w-full">
-      <span className="text-sm sm:text-base font-medium uppercase tracking-wider truncate mr-2 text-white">{title}</span>
-      {elapsedSeconds != null && (
-        <span className="text-sm sm:text-base font-mono tabular-nums shrink-0 text-primary">{timeStr}</span>
-      )}
-    </header>
+    <div className="sticky top-0 z-20 w-full shrink-0 px-4 pt-4 sm:px-6 sm:pt-4 lg:px-8 pb-2">
+      <div className="max-w-4xl mx-auto">
+        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-center justify-between gap-3">
+          <h1 className="text-2xl sm:text-3xl mb-0 truncate text-white font-bold min-w-0 flex-1">{title}</h1>
+          {elapsedSeconds != null && (
+            <span className="text-lg sm:text-xl font-mono tabular-nums shrink-0 text-primary font-semibold">{timeStr}</span>
+          )}
+        </header>
+      </div>
+    </div>
   );
 }
 

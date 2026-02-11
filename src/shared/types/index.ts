@@ -77,3 +77,32 @@ export interface UserState {
     currentWorkout?: Workout;
     history?: any[];
 }
+
+/** Dia da semana no plano do personal: 1 = Segunda, 7 = Domingo */
+export type DayOfWeek = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+/** Treino agendado por dia (passado pelo personal). Backend pode enviar apenas os dias com treino. */
+export interface ScheduledWorkout {
+    id: string;
+    /** 1 = Segunda ... 7 = Domingo */
+    dayOfWeek: DayOfWeek;
+    name: string;
+    /** Tempo estimado em minutos */
+    durationMinutes: number;
+    /** ID do treino completo (para abrir detalhe/WorkoutOverview) */
+    workoutId?: string;
+    completed?: boolean;
+}
+
+/** Resposta esperada do backend: plano semanal do aluno */
+export interface StudentWorkoutPlanResponse {
+    scheduledWorkouts: ScheduledWorkout[];
+}
+
+/** DTO para solicitar criação de treino (enviado ao personal) */
+export interface CreateTrainingDTO {
+    level: ExperienceLevel;
+    focus: Goal;
+    daysPerWeek: number;
+    limitations: string;
+}

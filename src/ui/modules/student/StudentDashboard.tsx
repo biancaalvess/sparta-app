@@ -52,34 +52,34 @@ export function StudentDashboard() {
   return (
     <div className="min-h-screen min-h-[100dvh] bg-page-dark pb-20 sm:pb-24 flex flex-col items-center">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <header className="glass-card-3d border-0 border-b border-white/10 rounded-none rounded-b-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
+        {/* Header — bloco com cantos arredondados (formato da referência) */}
+        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5">
           <div className="flex items-start justify-between gap-3 mb-4">
             <div className="min-w-0 flex-1">
-              <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white">Olá, Atleta! 💪</h1>
+              <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white font-bold">Olá, Atleta! 💪</h1>
               <p className="text-white/70 text-sm sm:text-base">Vamos dominar o dia</p>
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={handleLogout}
-              className="shrink-0 size-10 sm:size-11 min-h-[44px] min-w-[44px] text-white/60 hover:text-white touch-manipulation"
+              className="shrink-0 size-10 sm:size-11 min-h-[44px] min-w-[44px] text-white/60 hover:text-white touch-manipulation rounded-lg"
               title="Sair"
             >
               <LogOut className="size-5 sm:size-6" />
             </Button>
           </div>
-          {/* Streak Counter */}
-          <div className="flex items-center gap-3 glass-card-3d p-3 sm:p-4 rounded-xl">
-            <div className="bg-primary/20 p-2 sm:p-3 rounded-full shrink-0">
+          {/* Card Sequência Atual — cantos bem arredondados (estilo pill) */}
+          <div className="flex items-center gap-3 bg-white/[0.06] border border-white/10 p-3 sm:p-4 rounded-2xl">
+            <div className="bg-primary/20 p-2.5 sm:p-3 rounded-full shrink-0 ring-1 ring-primary/30">
               <Flame className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-xs sm:text-sm text-white/60">Sequência Atual</p>
-              <p className="text-xl sm:text-2xl font-bold text-primary">{currentStreak} dias</p>
+              <p className="text-xl sm:text-2xl font-bold text-primary tabular-nums">{currentStreak} dias</p>
             </div>
-            <div className="shrink-0">
-              <Trophy className="h-6 w-6 sm:h-8 sm:w-8 text-primary/60" />
+            <div className="shrink-0 text-primary/70">
+              <Trophy className="h-6 w-6 sm:h-8 sm:w-8" />
             </div>
           </div>
         </header>
@@ -87,7 +87,7 @@ export function StudentDashboard() {
         {/* Main Content */}
         <div className="py-4 sm:py-5 lg:py-6 space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Today's Workout Card */}
-        <Card variant="glass" className="overflow-hidden border-white/10 transition-shadow">
+        <Card variant="glass" className="overflow-hidden border border-white/10 rounded-2xl transition-shadow">
           <div
             className="relative min-h-[200px] sm:min-h-[220px] lg:min-h-[240px] p-4 sm:p-6 lg:p-6 rounded-xl bg-cover bg-center"
             style={
@@ -296,7 +296,12 @@ export function StudentDashboard() {
             <Dumbbell className="size-4 sm:size-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Treinos</span>
           </Button>
-          <Button variant="ghost" size="icon" className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="flex-col h-auto gap-0.5 sm:gap-1 py-2 min-w-0 min-h-[44px] sm:min-h-0 text-white/70 hover:text-white touch-manipulation"
+            onClick={() => navigate("/diet")}
+          >
             <ChefHat className="size-4 sm:size-5 shrink-0" />
             <span className="text-[10px] sm:text-xs truncate">Dieta</span>
           </Button>
