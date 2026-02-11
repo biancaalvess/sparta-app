@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSparta } from "@/shared/context/SpartaContext";
 import { Card } from "@/ui/components/ui/card";
 import { Button } from "@/ui/components/ui/button";
-import { PlayCircle, ArrowLeft, Flame, Clock, Dumbbell, Check } from "lucide-react";
+import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
+import { PlayCircle, ArrowLeft, Flame, Clock, Dumbbell, Check, Home, ChefHat, User } from "lucide-react";
 import { IMAGES } from "@/shared/constants/images";
 import { getWorkoutFromStorage, setWorkoutInStorage } from "@/shared/utils/workoutStorage";
 import type { Workout, Exercise } from "@/shared/types";
@@ -93,66 +94,67 @@ export function WorkoutOverviewScreen({
   const heroImage = workout.exercises[0]?.image || IMAGES.WORKOUT_MAIN;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col">
-      {/* Header — mesmo formato do dashboard (card arredondado) */}
-      <div className="sticky top-0 z-30 w-full shrink-0 px-4 pt-4 sm:px-6 sm:pt-4 lg:px-8 pb-2">
-        <div className="max-w-4xl mx-auto">
-          <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={onBack}
-              className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-full text-white hover:bg-white/10 active:bg-white/15 transition-colors touch-manipulation"
-              aria-label="Voltar"
-            >
-              <ArrowLeft className="size-5 sm:size-6" />
-            </button>
-            <div className="min-w-0 flex-1 text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl mb-0.5 truncate text-white font-bold">Meu treino</h1>
-              <p className="text-white/70 text-sm sm:text-base truncate">Visão geral do treino</p>
+    <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col pb-20 sm:pb-24">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1" style={{ perspective: "1200px" }}>
+        {/* Header — 3D/sombra */}
+        <header
+          className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5 flex items-center justify-between gap-3 transition-shadow duration-300"
+          style={{
+            boxShadow: "0 1px 0 0 rgba(255,255,255,0.12), 0 6px 20px rgba(0,0,0,0.18), 0 20px 45px -12px rgba(0,0,0,0.35)",
+            transform: "translateZ(0)",
+          }}
+        >
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors touch-manipulation"
+            aria-label="Voltar"
+          >
+            <ArrowLeft className="size-5 sm:size-6" />
+          </button>
+          <div className="min-w-0 flex-1 text-center">
+            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">Treino</h1>
+            <p className="text-white/60 text-xs sm:text-sm truncate">Visão geral</p>
+          </div>
+          {instructorAvatarUrl ? (
+            <img src={instructorAvatarUrl} alt="" className="size-9 sm:size-10 rounded-full object-cover border-2 border-white/20 shrink-0" />
+          ) : (
+            <div className="size-9 sm:size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
+              <Dumbbell className="size-4 sm:size-5 text-primary" />
             </div>
-            <div className="flex size-10 sm:size-11 shrink-0 items-center justify-center">
-              {instructorAvatarUrl ? (
-                <img
-                  src={instructorAvatarUrl}
-                  alt=""
-                  className="size-8 sm:size-9 rounded-full object-cover border-2 border-white/30"
-                />
-              ) : (
-                <div className="size-8 sm:size-9 rounded-full bg-primary/30 border-2 border-primary/50 flex items-center justify-center">
-                  <Dumbbell className="size-4 sm:size-5 text-primary" />
-                </div>
-              )}
-            </div>
-          </header>
-        </div>
-      </div>
+          )}
+        </header>
 
-      <main className="flex-1 overflow-y-auto overflow-x-hidden pb-32 sm:pb-36 lg:pb-40 w-full">
-        {/* Hero: mesma largura e cantos do header (padronizado) */}
-        <div className="w-full max-w-4xl mx-auto px-4 pt-2 sm:px-6 sm:pt-4 lg:px-8">
-          <div className="relative w-full aspect-[16/10] sm:aspect-[21/9] min-h-[28vh] sm:min-h-[32vh] max-h-[40vh] sm:max-h-[44vh] rounded-2xl overflow-hidden bg-black/40 border border-white/10">
-            <img
-              src={heroImage}
-              alt=""
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+        <main className="flex-1 overflow-y-auto">
+          {/* Hero único — sombra 3D elevada */}
+          <div
+            className="relative w-full aspect-[3/1] sm:aspect-[4/1] max-h-[140px] sm:max-h-[160px] rounded-2xl overflow-hidden bg-black/40 border border-white/10 mb-5 sm:mb-6"
+            style={{
+              boxShadow: "0 1px 0 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.25), 0 24px 56px -16px rgba(0,0,0,0.45)",
+            }}
+          >
+            <img src={heroImage} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             <div
-              className="absolute inset-x-0 bottom-0 h-16 sm:h-20 lg:h-24 pointer-events-none"
+              className="absolute inset-x-0 bottom-0 h-12 sm:h-14 pointer-events-none"
               style={{
-                background: "linear-gradient(to bottom, transparent 0%, rgba(15, 20, 22, 0.6) 40%, rgba(15, 20, 22, 0.98) 100%)",
+                background: "linear-gradient(to bottom, transparent 0%, rgba(15, 20, 22, 0.7) 60%, rgba(15, 20, 22, 0.98) 100%)",
               }}
             />
           </div>
-        </div>
 
-        <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Sticky: nome do treino (passado pelo personal) + progress bar */}
-          <div className="sticky top-[72px] sm:top-[88px] z-20 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 bg-page-dark/98 backdrop-blur-md border-b border-white/5 space-y-3 sm:space-y-4">
-            <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-[1.75rem] xl:text-3xl font-bold text-white leading-tight tracking-tight break-words pr-2">
+          {/* Nome do treino + meta + progresso — card 3D */}
+          <div
+            className="glass-card-3d rounded-2xl p-4 sm:p-5 lg:p-6 mb-5 sm:mb-6 border border-white/10 transition-shadow duration-300"
+            style={{
+              boxShadow: "0 1px 0 0 rgba(255,255,255,0.1), 0 6px 20px rgba(0,0,0,0.18), 0 18px 42px -10px rgba(0,0,0,0.32)",
+              transform: "translateZ(8px)",
+            }}
+          >
+            <h2 className="text-lg sm:text-xl font-semibold text-white leading-tight mb-3 sm:mb-4">
               {workout.name}
-            </h1>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs sm:text-sm text-white/70">
+            </h2>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-white/65 mb-4">
               <span className="flex items-center gap-1.5">
                 <Clock className="size-3.5 sm:size-4 text-primary shrink-0" />
                 {workout.duration} min
@@ -167,11 +169,11 @@ export function WorkoutOverviewScreen({
               </span>
             </div>
             <div className="space-y-1.5">
-              <div className="flex justify-between text-[10px] sm:text-xs text-white/60">
+              <div className="flex justify-between text-[10px] sm:text-xs text-white/55">
                 <span>Progresso</span>
                 <span>{completedCount}/{totalCount}</span>
               </div>
-              <div className="h-1.5 sm:h-2 rounded-full bg-white/10 overflow-hidden">
+              <div className="h-2 rounded-full bg-white/10 overflow-hidden">
                 <div
                   className="h-full rounded-full bg-primary transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
@@ -181,90 +183,91 @@ export function WorkoutOverviewScreen({
           </div>
 
           {/* Lista de exercícios */}
-          <div className="space-y-2 sm:space-y-3">
-            <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-white/80">
+          <div className="mb-6 sm:mb-8">
+            <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-white/70 mb-3 sm:mb-4">
               Sequência
-            </h2>
-            <div className="flex flex-col gap-2 sm:gap-3">
-              {workout.exercises.map((ex, idx) => {
-                return (
-                  <Card
-                    key={ex.id}
-                    variant="glass"
-                    className={`border-white/10 overflow-hidden transition-all touch-manipulation ${
-                      onExerciseClick ? "cursor-pointer hover:shadow-glass active:scale-[0.99]" : ""
-                    }`}
-                    onClick={() => onExerciseClick?.(ex, idx)}
-                  >
-                    <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 min-h-[72px] sm:min-h-0">
-                      <div className="relative shrink-0 size-14 sm:size-16 md:size-20 rounded-xl overflow-hidden bg-black/40 aspect-square">
-                        <img
-                          src={ex.image || IMAGES.WORKOUT_MAIN}
-                          alt=""
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1 py-0.5">
-                        <p className="text-white font-semibold text-sm sm:text-base leading-tight line-clamp-2 sm:truncate">
-                          {ex.name}
-                        </p>
-                        <p className="text-white/60 text-[11px] sm:text-xs md:text-sm mt-0.5">
-                          {ex.sets} séries x {ex.reps} reps
-                        </p>
-                        {ex.technique && (
-                          <span className="inline-block mt-1 sm:mt-1.5 text-[10px] font-medium uppercase tracking-wide text-primary bg-primary/15 px-2 py-0.5 rounded">
-                            {ex.technique}
-                          </span>
-                        )}
-                      </div>
-                      {onToggleExerciseDone && (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onToggleExerciseDone(ex.id);
-                          }}
-                          className={`shrink-0 size-9 sm:size-10 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] ${
-                            ex.done
-                              ? "bg-primary border-primary text-[#171512]"
-                              : "border-white/30 text-white/50 hover:border-white/50 active:border-primary/50"
-                          }`}
-                          aria-label={ex.done ? "Desmarcar" : "Marcar como feito"}
-                        >
-                          {ex.done ? <Check className="size-4 sm:size-5" /> : null}
-                        </button>
+            </h3>
+            <div className="flex flex-col gap-3 sm:gap-4">
+              {workout.exercises.map((ex, idx) => (
+                <Card
+                  key={ex.id}
+                  variant="glass"
+                  className={`glass-card-3d border border-white/10 overflow-hidden rounded-2xl transition-all duration-300 touch-manipulation ${
+                    onExerciseClick
+                      ? "cursor-pointer hover:bg-white/[0.08] hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.25),0_2px_0_0_rgba(255,255,255,0.08)] active:translate-y-0 active:scale-[0.99]" : ""
+                  }`}
+                  style={{
+                    boxShadow: "0 1px 0 0 rgba(255,255,255,0.08), 0 4px 14px rgba(0,0,0,0.15), 0 12px 32px -8px rgba(0,0,0,0.28)",
+                  }}
+                  onClick={() => onExerciseClick?.(ex, idx)}
+                >
+                  <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
+                    <div
+                      className="shrink-0 size-14 sm:size-16 rounded-xl overflow-hidden bg-black/30 aspect-square border border-white/5"
+                      style={{ boxShadow: "inset 0 1px 2px rgba(0,0,0,0.3)" }}
+                    >
+                      <img
+                        src={ex.image || IMAGES.WORKOUT_MAIN}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-white font-semibold text-sm sm:text-base leading-tight line-clamp-2">
+                        {ex.name}
+                      </p>
+                      <p className="text-white/55 text-xs sm:text-sm mt-0.5">
+                        {ex.sets} séries × {ex.reps} reps
+                      </p>
+                      {ex.technique && (
+                        <span className="inline-block mt-1.5 text-[10px] font-medium uppercase tracking-wide text-primary/90 bg-primary/15 px-2 py-0.5 rounded-md">
+                          {ex.technique}
+                        </span>
                       )}
                     </div>
-                  </Card>
-                );
-              })}
+                    {onToggleExerciseDone && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleExerciseDone(ex.id);
+                        }}
+                        className={`shrink-0 size-9 sm:size-10 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation ${
+                          ex.done
+                            ? "bg-primary border-primary text-[#171512]"
+                            : "border-white/25 text-white/40 hover:border-white/40 hover:text-white/60"
+                        }`}
+                        aria-label={ex.done ? "Desmarcar" : "Marcar como feito"}
+                      >
+                        {ex.done ? <Check className="size-4 sm:size-5" /> : null}
+                      </button>
+                    )}
+                  </div>
+                </Card>
+              ))}
             </div>
             {workout.exercises.length === 0 && (
-              <p className="text-white/50 text-xs sm:text-sm py-8 sm:py-10 text-center">
+              <p className="text-white/50 text-sm py-8 text-center rounded-2xl border border-dashed border-white/10">
                 Nenhum exercício neste treino.
               </p>
             )}
           </div>
-        </div>
-      </main>
 
-      {/* CTA fixo: safe area em mobile (notch/home) */}
-      <footer
-        className="fixed bottom-0 left-0 right-0 z-20 w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 lg:pt-10 bg-gradient-to-t from-[#0f1416] via-[#0f1416]/98 to-transparent pointer-events-none"
-        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
-      >
-        <div className="max-w-2xl mx-auto pointer-events-auto w-full min-w-0">
+          {/* CTA Iniciar treino — botão 3D */}
           <Button
             variant="default"
             size="lg"
-            className="w-full h-12 sm:h-14 text-sm sm:text-base md:text-lg font-bold rounded-2xl shadow-glass flex items-center justify-center gap-2 min-h-[48px] sm:min-h-14"
+            className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-2 mb-2 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(213,159,57,0.35),0_4px_0_0_rgba(0,0,0,0.15)] active:translate-y-0"
+            style={{
+              boxShadow: "0 2px 0 0 rgba(0,0,0,0.2), 0 6px 20px rgba(213,159,57,0.25)",
+            }}
             onClick={onStartWorkout}
           >
             <PlayCircle className="size-5 sm:size-6 shrink-0" />
             Iniciar treino
           </Button>
-        </div>
-      </footer>
+        </main>
+      </div>
     </div>
   );
 }
@@ -298,15 +301,25 @@ const WorkoutOverview: React.FC = () => {
     setExerciseDone((prev) => ({ ...prev, [exerciseId]: !prev[exerciseId] }));
   };
 
+  const floatingNavItems: FloatingNavItem[] = [
+    { icon: <Home />, label: "Início", onClick: () => navigate("/dashboard/student") },
+    { icon: <Dumbbell />, label: "Treinos", onClick: () => navigate("/student/workouts") },
+    { icon: <ChefHat />, label: "Dieta", onClick: () => navigate("/diet") },
+    { icon: <User />, label: "Perfil", onClick: () => navigate("/dashboard/perfil") },
+  ];
+
   return (
-    <WorkoutOverviewScreen
-      workout={workout}
-      instructorAvatarUrl={IMAGES.INSTRUCTOR}
-      onBack={() => navigate(-1)}
-      onStartWorkout={() => navigate("/active-workout", { state: { workout, startTimer: true } })}
-      onToggleExerciseDone={handleToggleDone}
-      onExerciseClick={(_, index) => navigate("/active-workout", { state: { workout, startAt: index, startTimer: true } })}
-    />
+    <>
+      <WorkoutOverviewScreen
+        workout={workout}
+        instructorAvatarUrl={IMAGES.INSTRUCTOR}
+        onBack={() => navigate(-1)}
+        onStartWorkout={() => navigate("/active-workout", { state: { workout, startTimer: true } })}
+        onToggleExerciseDone={handleToggleDone}
+        onExerciseClick={(_, index) => navigate("/active-workout", { state: { workout, startAt: index, startTimer: true } })}
+      />
+      <FloatingNav items={floatingNavItems} position="bottom-center" />
+    </>
   );
 };
 
