@@ -1,4 +1,5 @@
 import { Button } from "@/ui/components/ui/button";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import {
   Table,
@@ -116,28 +117,24 @@ export function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-page-dark">
-      <div className="w-full">
-        {/* Header */}
-        <div className="glass-card border-0 border-b border-white/10 rounded-none rounded-b-2xl p-4 sm:p-6 lg:px-8">
-          <div className="max-w-7xl mx-auto flex items-start justify-between gap-4">
-            <div className="min-w-0">
-              <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 text-white tracking-tight">Dashboard Administrativo</h1>
-              <p className="text-white/50 text-sm">Visão geral da plataforma e métricas</p>
-            </div>
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <PageHeader
+          title="Dashboard Administrativo"
+          subtitle="Visão geral da plataforma e métricas"
+          rightSlot={
             <Button
               variant="ghost"
               size="sm"
               onClick={() => navigate("/")}
-              className="shrink-0 text-white/60 hover:text-white flex items-center gap-2"
+              className="text-white/60 hover:text-white flex items-center gap-2"
               title="Sair"
             >
               <LogOut className="size-4" />
               <span className="hidden sm:inline text-sm">Sair</span>
             </Button>
-          </div>
-        </div>
-
-        <div className="p-4 sm:p-6 lg:p-8 pb-24 max-w-7xl mx-auto space-y-6 lg:space-y-8">
+          }
+        />
+        <div className="py-5 sm:py-6 lg:py-8 pb-24 space-y-6 lg:space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="glass-card-3d rounded-2xl p-4 sm:p-5">
               <div className="flex items-center justify-between mb-1.5">

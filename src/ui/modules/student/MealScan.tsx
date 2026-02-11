@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { useNavigate } from 'react-router-dom';
 import { useSparta } from '../../../shared/context/SpartaContext';
 import { Meal } from '../../../shared/types';
@@ -61,11 +62,22 @@ const MealScan: React.FC = () => {
 
   return (
     <div className="relative flex h-full w-full flex-col bg-background-dark border-x border-[#333] overflow-hidden">
-      <header className="flex items-center justify-between p-4 sm:p-6 pb-2 bg-background-dark z-10 max-w-4xl mx-auto w-full">
-        <button onClick={() => navigate('/diet')} className="text-white flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/5 transition-colors"><span className="material-symbols-outlined text-xl sm:text-2xl">arrow_back</span></button>
-        <h1 className="text-white text-sm sm:text-base font-bold tracking-wider uppercase flex-1 text-center text-opacity-90">Registro IA</h1>
-        <button className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/5 transition-colors"><span className="material-symbols-outlined text-xl sm:text-2xl">settings</span></button>
-      </header>
+      <div className="px-4 sm:px-6 pt-4 sm:pt-6 pb-2 z-10 max-w-4xl mx-auto w-full">
+        <PageHeader
+        title="Registro IA"
+        leftSlot={
+          <button onClick={() => navigate('/diet')} className="text-white flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/5 transition-colors" aria-label="Voltar">
+            <span className="material-symbols-outlined text-xl sm:text-2xl">arrow_back</span>
+          </button>
+        }
+        rightSlot={
+          <button className="flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/5 transition-colors" aria-label="Configurações">
+            <span className="material-symbols-outlined text-xl sm:text-2xl">settings</span>
+          </button>
+        }
+        className="!mb-0"
+      />
+      </div>
 
       <main className="flex-1 flex flex-col gap-4 sm:gap-6 px-4 sm:px-6 lg:px-8 pt-2 pb-24 overflow-y-auto no-scrollbar max-w-4xl mx-auto w-full">
         <div className="flex flex-col gap-1">

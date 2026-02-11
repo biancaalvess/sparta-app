@@ -1,4 +1,5 @@
 import { Button } from "@/ui/components/ui/button";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import {
   Dumbbell,
@@ -34,11 +35,11 @@ export function StudentWorkouts() {
   return (
     <div className="min-h-screen bg-page-dark pb-20 sm:pb-24 flex flex-col items-center">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header — mesmo formato do dashboard (card arredondado) */}
-        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5">
-          <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white font-bold">Treinos</h1>
-          <p className="text-white/70 text-sm sm:text-base">Treinos passados pelo seu personal</p>
-        </header>
+        <PageHeader
+          title="Treinos"
+          subtitle="Treinos passados pelo seu personal"
+          titleSize="large"
+        />
 
         <div className="py-4 sm:py-5 lg:py-6 space-y-4 sm:space-y-6 lg:space-y-8">
           {/* Treino de hoje */}

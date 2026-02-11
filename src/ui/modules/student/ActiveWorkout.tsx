@@ -32,7 +32,7 @@ export function WorkoutHeader({ title, elapsedSeconds, onBack }: WorkoutHeaderPr
   return (
     <div className="sticky top-0 z-20 w-full shrink-0 px-4 pt-4 sm:px-6 sm:pt-4 lg:px-8 pb-2">
       <div className="max-w-4xl mx-auto">
-        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-center gap-3">
+        <header className="page-header px-4 py-4 sm:px-6 sm:py-5 lg:px-8 flex items-center gap-3 mb-0">
           {onBack && (
             <button
               type="button"

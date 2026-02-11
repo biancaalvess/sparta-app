@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/ui/components/ui/button";
 import { Input } from "@/ui/components/ui/input";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import {
   Select,
   SelectContent,
@@ -127,26 +128,23 @@ export function ProfessionalStudents() {
 
   return (
     <div className="min-h-screen min-h-[100dvh] bg-page-dark">
-      <div className="w-full max-w-5xl mx-auto">
-        <header className="glass-card-3d border-0 border-b border-white/10 rounded-none rounded-b-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8">
-          <div className="flex items-center justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              <h1 className="text-xl sm:text-2xl font-semibold mb-0.5 truncate text-white tracking-tight">Meus alunos</h1>
-              <p className="text-white/50 text-xs sm:text-sm">Lista de alunos vinculados ao seu perfil</p>
-            </div>
+      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <PageHeader
+          title="Meus alunos"
+          subtitle="Lista de alunos vinculados ao seu perfil"
+          rightSlot={
             <Button
               size="icon"
-              className="shrink-0 size-10 sm:size-11 rounded-full min-h-[44px] min-w-[44px] touch-manipulation"
+              className="size-10 sm:size-11 rounded-full min-h-[44px] min-w-[44px] touch-manipulation"
               variant="default"
               onClick={() => setNewStudentOpen(true)}
               title="Registrar novo aluno"
             >
-              <Plus className="size-5 sm:size-5" />
+              <Plus className="size-5" />
             </Button>
-          </div>
-        </header>
-
-        <div className="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 pb-24">
+          }
+        />
+        <div className="py-5 sm:py-6 lg:py-8 pb-24">
           {/* Barra de ferramentas: busca + contagem + ação */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6">
             <div className="flex-1 w-full sm:max-w-md relative">

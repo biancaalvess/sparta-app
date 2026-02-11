@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSparta } from '../../../shared/context/SpartaContext';
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { IMAGES } from '../../../shared/constants/images';
 
 const InstructorReview: React.FC = () => {
@@ -12,17 +13,21 @@ const InstructorReview: React.FC = () => {
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-[#171512]">
-      <header className="sticky top-0 z-50 bg-[#171512]/95 backdrop-blur-md border-b border-border-dark">
-        <div className="flex items-center justify-between p-4 h-16">
-          <button onClick={() => navigate('/dashboard')} className="text-white flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors">
-            <span className="material-symbols-outlined text-2xl">arrow_back</span>
-          </button>
-          <h2 className="text-white text-lg font-bold tracking-tight uppercase">Revisão Técnica</h2>
-          <button className="text-white flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors">
-            <span className="material-symbols-outlined text-2xl">more_vert</span>
-          </button>
-        </div>
-      </header>
+      <div className="sticky top-0 z-50 px-4 py-4 max-w-4xl mx-auto w-full">
+        <PageHeader
+          title="Revisão Técnica"
+          leftSlot={
+            <button onClick={() => navigate('/dashboard')} className="text-white flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors" aria-label="Voltar">
+              <span className="material-symbols-outlined text-2xl">arrow_back</span>
+            </button>
+          }
+          rightSlot={
+            <button className="text-white flex items-center justify-center size-10 rounded-full hover:bg-white/10 transition-colors" aria-label="Mais opções">
+              <span className="material-symbols-outlined text-2xl">more_vert</span>
+            </button>
+          }
+        />
+      </div>
 
       <main className="flex-1 overflow-y-auto pb-36 bg-[#171512]">
         <section className="p-4 sm:p-6 lg:p-8 border-b border-border-dark bg-[#171512] max-w-4xl mx-auto">

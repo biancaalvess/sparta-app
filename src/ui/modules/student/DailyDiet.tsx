@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSparta } from "@/shared/context/SpartaContext";
 import { Button } from "@/ui/components/ui/button";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { Progress } from "@/ui/components/ui/progress";
 import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import {
@@ -64,15 +65,11 @@ const DailyDiet: React.FC = () => {
   return (
     <div className="min-h-screen bg-page-dark pb-20 sm:pb-24 flex flex-col items-center">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header — mesmo formato do dashboard (card arredondado) */}
-        <header className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5">
-          <h1 className="text-2xl sm:text-3xl mb-1 truncate text-white font-bold">
-            Nutrição Diária
-          </h1>
-          <p className="text-white/70 text-sm sm:text-base">
-            Sua dieta e macros do dia
-          </p>
-        </header>
+        <PageHeader
+          title="Nutrição Diária"
+          subtitle="Sua dieta e macros do dia"
+          titleSize="large"
+        />
 
         {/* Conteúdo */}
         <div className="py-4 sm:py-5 lg:py-6 space-y-4 sm:space-y-6 lg:space-y-8">

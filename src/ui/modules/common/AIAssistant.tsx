@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/ui/components/ui/button";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { ArrowLeft, Send, Mic, Plus } from "lucide-react";
 
 type MessageRole = "user" | "assistant";
@@ -68,24 +69,20 @@ export function AIAssistant() {
       {/* Container principal */}
       <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col flex-1 px-4 py-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 sm:py-0 min-w-0">
         <div className="ai-panel-aura backdrop-blur-xl flex flex-col flex-1 min-h-0 rounded-3xl overflow-hidden px-3 py-3 sm:px-5 md:px-6 sm:py-4">
-          {/* Header — minimalista Aura */}
-          <header className="flex items-center gap-3 shrink-0 mb-4 sm:mb-5">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="flex size-10 shrink-0 items-center justify-center rounded-full text-white/50 hover:text-white hover:bg-white/5 transition-all duration-200 touch-manipulation"
-              aria-label="Voltar"
-            >
-              <ArrowLeft className="size-5" />
-            </button>
-            <div className="flex-1 min-w-0 flex flex-col items-center">
-              <h1 className="text-base sm:text-lg font-medium text-white truncate">
-                Sparta Fitness AI
-              </h1>
-              <p className="text-[11px] text-white/40">Assistente</p>
-            </div>
-            <div className="w-10 shrink-0" aria-hidden />
-          </header>
+          <PageHeader
+            title="Sparta Fitness AI"
+            subtitle="Assistente"
+            leftSlot={
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="flex size-10 shrink-0 items-center justify-center rounded-full text-white/50 hover:text-white hover:bg-white/5 transition-all duration-200 touch-manipulation"
+                aria-label="Voltar"
+              >
+                <ArrowLeft className="size-5" />
+              </button>
+            }
+          />
 
           {/* Área de mensagens */}
           <main

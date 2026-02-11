@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PageHeader } from "@/ui/components/ui/page-header";
 // 🔥 CORREÇÃO: Caminho atualizado para a pasta shared
 import { useSparta } from '../../../shared/context/SpartaContext';
 import { Goal } from '../../../shared/types';
@@ -17,14 +18,18 @@ const GoalSelection: React.FC = () => {
 
   return (
     <div className="relative flex h-full w-full flex-col overflow-hidden bg-background-dark">
-      <header className="relative z-10 flex flex-col px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 max-w-4xl mx-auto w-full">
-        <div className="flex items-center justify-between mb-6 sm:mb-8">
-          <button onClick={() => navigate(-1)} className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/5 text-white transition-colors">
-            <span className="material-symbols-outlined">chevron_left</span>
-          </button>
-          <h1 className="text-white text-2xl sm:text-3xl lg:text-[32px] font-extrabold uppercase leading-[1.1] tracking-wide">Qual seu<br/><span className="text-primary">objetivo?</span></h1>
-        </div>
-      </header>
+      <div className="relative z-10 px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 max-w-4xl mx-auto w-full">
+        <PageHeader
+          title="Qual seu objetivo?"
+          titleSize="large"
+          leftSlot={
+            <button onClick={() => navigate(-1)} className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-white/5 text-white transition-colors" aria-label="Voltar">
+              <span className="material-symbols-outlined">chevron_left</span>
+            </button>
+          }
+          className="mb-6 sm:mb-8"
+        />
+      </div>
 
       <main className="relative z-10 flex-1 px-4 sm:px-6 lg:px-8 pb-24 space-y-4 sm:space-y-5 overflow-y-auto no-scrollbar max-w-4xl mx-auto w-full">
         {goals.map((goal) => (

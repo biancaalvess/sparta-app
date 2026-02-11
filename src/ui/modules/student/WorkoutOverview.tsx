@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSparta } from "@/shared/context/SpartaContext";
 import { Card } from "@/ui/components/ui/card";
 import { Button } from "@/ui/components/ui/button";
+import { PageHeader } from "@/ui/components/ui/page-header";
 import { FloatingNav, type FloatingNavItem } from "@/ui/components/ui/floating-nav";
 import { PlayCircle, ArrowLeft, Flame, Clock, Dumbbell, Check, Home, ChefHat, User } from "lucide-react";
 import { IMAGES } from "@/shared/constants/images";
@@ -96,34 +97,29 @@ export function WorkoutOverviewScreen({
   return (
     <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col pb-20 sm:pb-24">
       <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1" style={{ perspective: "1200px" }}>
-        {/* Header — 3D/sombra */}
-        <header
-          className="glass-card-3d border border-white/10 rounded-2xl px-4 py-4 sm:px-6 sm:py-5 lg:px-8 mb-4 sm:mb-5 flex items-center justify-between gap-3 transition-shadow duration-300"
-          style={{
-            boxShadow: "0 1px 0 0 rgba(255,255,255,0.12), 0 6px 20px rgba(0,0,0,0.18), 0 20px 45px -12px rgba(0,0,0,0.35)",
-            transform: "translateZ(0)",
-          }}
-        >
-          <button
-            type="button"
-            onClick={onBack}
-            className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors touch-manipulation"
-            aria-label="Voltar"
-          >
-            <ArrowLeft className="size-5 sm:size-6" />
-          </button>
-          <div className="min-w-0 flex-1 text-center">
-            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">Treino</h1>
-            <p className="text-white/60 text-xs sm:text-sm truncate">Visão geral</p>
-          </div>
-          {instructorAvatarUrl ? (
-            <img src={instructorAvatarUrl} alt="" className="size-9 sm:size-10 rounded-full object-cover border-2 border-white/20 shrink-0" />
-          ) : (
-            <div className="size-9 sm:size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
-              <Dumbbell className="size-4 sm:size-5 text-primary" />
-            </div>
-          )}
-        </header>
+        <PageHeader
+          title="Treino"
+          subtitle="Visão geral"
+          leftSlot={
+            <button
+              type="button"
+              onClick={onBack}
+              className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors touch-manipulation"
+              aria-label="Voltar"
+            >
+              <ArrowLeft className="size-5 sm:size-6" />
+            </button>
+          }
+          rightSlot={
+            instructorAvatarUrl ? (
+              <img src={instructorAvatarUrl} alt="" className="size-9 sm:size-10 rounded-full object-cover border-2 border-white/20 shrink-0" />
+            ) : (
+              <div className="size-9 sm:size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
+                <Dumbbell className="size-4 sm:size-5 text-primary" />
+              </div>
+            )
+          }
+        />
 
         <main className="flex-1 overflow-y-auto">
           {/* Hero único — sombra 3D elevada */}
