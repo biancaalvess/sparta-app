@@ -95,8 +95,8 @@ export function WorkoutOverviewScreen({
   const heroImage = workout.exercises[0]?.image || IMAGES.WORKOUT_MAIN;
 
   return (
-    <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col pb-20 sm:pb-24">
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1" style={{ perspective: "1200px" }}>
+    <div className="min-h-screen min-h-[100dvh] w-full bg-page-dark flex flex-col">
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col flex-1">
         <PageHeader
           title="Treino"
           subtitle="Visão geral"
@@ -104,7 +104,7 @@ export function WorkoutOverviewScreen({
             <button
               type="button"
               onClick={onBack}
-              className="flex size-10 sm:size-11 shrink-0 items-center justify-center rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors touch-manipulation"
+              className="flex min-w-[44px] min-h-[44px] size-11 shrink-0 items-center justify-center rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-colors touch-manipulation active:scale-95"
               aria-label="Voltar"
             >
               <ArrowLeft className="size-5 sm:size-6" />
@@ -112,64 +112,49 @@ export function WorkoutOverviewScreen({
           }
           rightSlot={
             instructorAvatarUrl ? (
-              <img src={instructorAvatarUrl} alt="" className="size-9 sm:size-10 rounded-full object-cover border-2 border-white/20 shrink-0" />
+              <img src={instructorAvatarUrl} alt="" className="size-10 rounded-full object-cover border-2 border-white/20 shrink-0" />
             ) : (
-              <div className="size-9 sm:size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
+              <div className="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
                 <Dumbbell className="size-4 sm:size-5 text-primary" />
               </div>
             )
           }
         />
 
-        <main className="flex-1 overflow-y-auto">
-          {/* Hero único — sombra 3D elevada */}
-          <div
-            className="relative w-full aspect-[3/1] sm:aspect-[4/1] max-h-[140px] sm:max-h-[160px] rounded-2xl overflow-hidden bg-black/40 border border-white/10 mb-5 sm:mb-6"
-            style={{
-              boxShadow: "0 1px 0 0 rgba(255,255,255,0.08), 0 8px 24px rgba(0,0,0,0.25), 0 24px 56px -16px rgba(0,0,0,0.45)",
-            }}
-          >
+        <main className="flex-1 overflow-y-auto pb-[180px] sm:pb-[200px]">
+          {/* Hero compacto */}
+          <div className="relative w-full aspect-[3/1] max-h-[100px] sm:max-h-[120px] rounded-xl overflow-hidden bg-black/30 mb-4 sm:mb-5">
             <img src={heroImage} alt="" className="absolute inset-0 w-full h-full object-cover object-center" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            <div
-              className="absolute inset-x-0 bottom-0 h-12 sm:h-14 pointer-events-none"
-              style={{
-                background: "linear-gradient(to bottom, transparent 0%, rgba(15, 20, 22, 0.7) 60%, rgba(15, 20, 22, 0.98) 100%)",
-              }}
-            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           </div>
 
-          {/* Nome do treino + meta + progresso — card 3D */}
-          <div
-            className="glass-card-3d rounded-2xl p-4 sm:p-5 lg:p-6 mb-5 sm:mb-6 border border-white/10 transition-shadow duration-300"
-            style={{
-              boxShadow: "0 1px 0 0 rgba(255,255,255,0.1), 0 6px 20px rgba(0,0,0,0.18), 0 18px 42px -10px rgba(0,0,0,0.32)",
-              transform: "translateZ(8px)",
-            }}
-          >
-            <h2 className="text-lg sm:text-xl font-semibold text-white leading-tight mb-3 sm:mb-4">
+          {/* Nome do treino + meta + progresso — card clean */}
+          <div className="rounded-xl p-4 sm:p-5 mb-4 sm:mb-5 bg-white/[0.04] border border-white/[0.06]">
+            <h2 className="text-base sm:text-lg font-semibold text-white leading-tight mb-2 sm:mb-3">
               {workout.name}
             </h2>
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm text-white/65 mb-4">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-white/60 mb-3">
               <span className="flex items-center gap-1.5">
-                <Clock className="size-3.5 sm:size-4 text-primary shrink-0" />
+                <Clock className="size-3.5 text-primary shrink-0" />
                 {workout.duration} min
               </span>
               <span className="flex items-center gap-1.5">
-                <Flame className="size-3.5 sm:size-4 text-primary shrink-0" />
-                {caloriesEstimated != null ? `${caloriesEstimated} kcal` : "— kcal"}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Dumbbell className="size-3.5 sm:size-4 text-primary shrink-0" />
+                <Dumbbell className="size-3.5 text-primary shrink-0" />
                 {workout.exercises.length} exercícios
               </span>
+              {caloriesEstimated != null && (
+                <span className="flex items-center gap-1.5">
+                  <Flame className="size-3.5 text-primary shrink-0" />
+                  {caloriesEstimated} kcal
+                </span>
+              )}
             </div>
-            <div className="space-y-1.5">
-              <div className="flex justify-between text-[10px] sm:text-xs text-white/55">
+            <div className="space-y-1">
+              <div className="flex justify-between text-[10px] text-white/50">
                 <span>Progresso</span>
                 <span>{completedCount}/{totalCount}</span>
               </div>
-              <div className="h-2 rounded-full bg-white/10 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
                 <div
                   className="h-full rounded-full bg-primary transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
@@ -178,30 +163,23 @@ export function WorkoutOverviewScreen({
             </div>
           </div>
 
-          {/* Lista de exercícios */}
-          <div className="mb-6 sm:mb-8">
-            <h3 className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-white/70 mb-3 sm:mb-4">
+          {/* Lista de exercícios — cards clean */}
+          <div className="mb-4">
+            <h3 className="text-[11px] font-medium uppercase tracking-wider text-white/50 mb-2 sm:mb-3">
               Sequência
             </h3>
-            <div className="flex flex-col gap-3 sm:gap-4">
+            <div className="flex flex-col gap-2 sm:gap-3">
               {workout.exercises.map((ex, idx) => (
                 <Card
                   key={ex.id}
                   variant="glass"
-                  className={`glass-card-3d border border-white/10 overflow-hidden rounded-2xl transition-all duration-300 touch-manipulation ${
-                    onExerciseClick
-                      ? "cursor-pointer hover:bg-white/[0.08] hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.25),0_2px_0_0_rgba(255,255,255,0.08)] active:translate-y-0 active:scale-[0.99]" : ""
+                  className={`overflow-hidden rounded-xl border border-white/[0.06] bg-white/[0.03] transition-all touch-manipulation active:scale-[0.99] ${
+                    onExerciseClick ? "cursor-pointer hover:bg-white/[0.06]" : ""
                   }`}
-                  style={{
-                    boxShadow: "0 1px 0 0 rgba(255,255,255,0.08), 0 4px 14px rgba(0,0,0,0.15), 0 12px 32px -8px rgba(0,0,0,0.28)",
-                  }}
                   onClick={() => onExerciseClick?.(ex, idx)}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5">
-                    <div
-                      className="shrink-0 size-14 sm:size-16 rounded-xl overflow-hidden bg-black/30 aspect-square border border-white/5"
-                      style={{ boxShadow: "inset 0 1px 2px rgba(0,0,0,0.3)" }}
-                    >
+                  <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4">
+                    <div className="shrink-0 size-12 sm:size-14 rounded-lg overflow-hidden bg-black/20 aspect-square">
                       <img
                         src={ex.image || IMAGES.WORKOUT_MAIN}
                         alt=""
@@ -209,14 +187,14 @@ export function WorkoutOverviewScreen({
                       />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white font-semibold text-sm sm:text-base leading-tight line-clamp-2">
+                      <p className="text-white font-medium text-sm sm:text-base leading-tight line-clamp-1">
                         {ex.name}
                       </p>
-                      <p className="text-white/55 text-xs sm:text-sm mt-0.5">
-                        {ex.sets} séries × {ex.reps} reps
+                      <p className="text-white/50 text-xs mt-0.5">
+                        {ex.sets} × {ex.reps} reps
                       </p>
                       {ex.technique && (
-                        <span className="inline-block mt-1.5 text-[10px] font-medium uppercase tracking-wide text-primary/90 bg-primary/15 px-2 py-0.5 rounded-md">
+                        <span className="inline-block mt-1 text-[10px] font-medium uppercase tracking-wide text-primary/80 bg-primary/10 px-1.5 py-0.5 rounded">
                           {ex.technique}
                         </span>
                       )}
@@ -228,14 +206,14 @@ export function WorkoutOverviewScreen({
                           e.stopPropagation();
                           onToggleExerciseDone(ex.id);
                         }}
-                        className={`shrink-0 size-9 sm:size-10 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation ${
+                        className={`shrink-0 min-w-[44px] min-h-[44px] size-11 rounded-full border-2 flex items-center justify-center transition-colors touch-manipulation active:scale-95 ${
                           ex.done
                             ? "bg-primary border-primary text-[#171512]"
-                            : "border-white/25 text-white/40 hover:border-white/40 hover:text-white/60"
+                            : "border-white/20 text-white/40 hover:border-white/30 hover:text-white/60"
                         }`}
                         aria-label={ex.done ? "Desmarcar" : "Marcar como feito"}
                       >
-                        {ex.done ? <Check className="size-4 sm:size-5" /> : null}
+                        {ex.done ? <Check className="size-5" /> : null}
                       </button>
                     )}
                   </div>
@@ -243,26 +221,30 @@ export function WorkoutOverviewScreen({
               ))}
             </div>
             {workout.exercises.length === 0 && (
-              <p className="text-white/50 text-sm py-8 text-center rounded-2xl border border-dashed border-white/10">
+              <p className="text-white/40 text-sm py-6 text-center rounded-xl border border-dashed border-white/10">
                 Nenhum exercício neste treino.
               </p>
             )}
           </div>
-
-          {/* CTA Iniciar treino — botão 3D */}
-          <Button
-            variant="default"
-            size="lg"
-            className="w-full h-12 sm:h-14 text-base sm:text-lg font-bold rounded-2xl flex items-center justify-center gap-2 mb-2 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(213,159,57,0.35),0_4px_0_0_rgba(0,0,0,0.15)] active:translate-y-0"
-            style={{
-              boxShadow: "0 2px 0 0 rgba(0,0,0,0.2), 0 6px 20px rgba(213,159,57,0.25)",
-            }}
-            onClick={onStartWorkout}
-          >
-            <PlayCircle className="size-5 sm:size-6 shrink-0" />
-            Iniciar treino
-          </Button>
         </main>
+
+        {/* CTA fixo — acima da nav, padronizado com padding lateral */}
+        <div
+          className="fixed left-0 right-0 z-40 flex justify-center px-4"
+          style={{ bottom: "calc(80px + max(0.5rem, env(safe-area-inset-bottom)))" }}
+        >
+          <div className="w-full max-w-4xl px-6 sm:px-10">
+            <Button
+              variant="default"
+              size="lg"
+              className="w-full h-12 px-6 text-[15px] font-semibold rounded-xl flex items-center justify-center gap-2 shadow-[0_2px_12px_rgba(213,159,57,0.3)] touch-manipulation active:scale-[0.98]"
+              onClick={onStartWorkout}
+            >
+              <PlayCircle className="size-5 shrink-0" />
+              Iniciar treino
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
