@@ -29,24 +29,24 @@ const buttonVariantsCva = cva(
 
 const variantStyles: Record<string, string> = {
   default:
-    "relative text-[#171512] font-semibold shadow-[0_0_0_1px_rgba(0,0,0,0.1),0_2px_8px_rgba(0,0,0,0.15)] bg-[radial-gradient(ellipse_at_bottom,rgba(230,180,80,0.98)_0%,rgba(213,159,57,0.95)_45%)] hover:brightness-110 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] before:opacity-20 hover:before:opacity-100",
+    "relative text-[#171512] font-semibold bg-primary hover:bg-primary/90 hover:brightness-110 active:scale-[0.98] shadow-[0_0_0_1px_rgba(0,0,0,0.15),0_2px_8px_rgba(0,0,0,0.2)] [&_svg]:text-[#171512]",
   destructive:
-    "relative text-white/90 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] bg-[radial-gradient(ellipse_at_bottom,rgba(220,80,60,0.95)_0%,rgba(140,40,30,0.98)_45%)] hover:text-white hover:scale-[1.02] hover:-translate-y-0.5 before:opacity-20 hover:before:opacity-100",
+    "relative text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] bg-destructive hover:bg-destructive/90 hover:brightness-110 active:scale-[0.98]",
   outline:
-    "relative text-foreground/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] bg-[radial-gradient(ellipse_at_bottom,rgba(71,81,92,0.9)_0%,rgba(11,21,30,0.95)_45%)] hover:text-foreground hover:scale-[1.02] hover:-translate-y-0.5 before:opacity-20 hover:before:opacity-100",
+    "relative text-white/90 bg-transparent border border-white/20 hover:bg-white/10 hover:text-white hover:border-white/30 active:scale-[0.98] [&_svg]:text-white/90 [&_svg]:hover:text-white",
   secondary:
-    "relative text-foreground/80 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] bg-[radial-gradient(ellipse_at_bottom,rgba(71,81,92,0.9)_0%,rgba(11,21,30,0.95)_45%)] hover:text-foreground hover:scale-[1.02] hover:-translate-y-0.5 before:opacity-20 hover:before:opacity-100",
+    "relative text-white/90 bg-white/[0.06] border border-white/10 hover:bg-white/[0.1] hover:text-white hover:border-white/20 active:scale-[0.98] [&_svg]:text-white/90",
   ghost:
-    "relative text-foreground/80 hover:text-foreground hover:bg-white/5 before:opacity-0 hover:before:opacity-50",
+    "relative text-white/80 hover:text-white hover:bg-white/5 active:scale-[0.98] [&_svg]:text-white/80 [&_svg]:hover:text-white",
   link:
-    "bg-transparent shadow-none hover:underline hover:scale-100 hover:translate-y-0",
+    "bg-transparent shadow-none text-primary hover:underline hover:scale-100 hover:translate-y-0",
 };
 
 const sizeStyles: Record<string, string> = {
-  default: "rounded-[7px] py-2 px-3.5 text-sm font-medium min-w-0",
-  sm: "rounded-[6px] py-1.5 px-2.5 text-xs font-medium min-w-0",
+  default: "rounded-xl py-2 px-4 text-sm font-medium min-w-0",
+  sm: "rounded-xl py-2 px-3 text-xs font-medium min-w-0",
   lg: "rounded-xl py-3 px-6 text-base font-semibold min-w-0",
-  icon: "rounded-[7px] p-2 size-8 min-w-0",
+  icon: "rounded-xl p-2 size-9 min-w-0",
 };
 
 type ButtonVariant = keyof typeof variantStyles;
@@ -69,11 +69,9 @@ function Button({
   const isLink = v === "link";
 
   const buttonClass = cn(
-    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer border-0 transition-[transform,color,box-shadow] duration-300 ease-[cubic-bezier(0.15,0.83,0.66,1)] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    "inline-flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer transition-all duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f1416]",
     variantStyles[v],
     sizeStyles[s],
-    !isLink &&
-      "before:content-[''] before:absolute before:left-[15%] before:right-[15%] before:bottom-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white before:to-transparent before:transition-opacity before:duration-300 before:pointer-events-none",
     className
   );
 

@@ -179,7 +179,7 @@ const MealScan: React.FC = () => {
                   {[
                     { label: "Proteína", value: result.protein, color: "bg-primary" },
                     { label: "Gorduras", value: result.fat, color: "bg-amber-500" },
-                    { label: "Carboidratos", value: result.carbs, color: "bg-sky-500" },
+                    { label: "Carboidratos", value: result.carbs, color: "bg-amber-400/80" },
                   ].map(({ label, value, color }) => (
                     <div key={label}>
                       <div className="flex justify-between text-xs mb-1">
