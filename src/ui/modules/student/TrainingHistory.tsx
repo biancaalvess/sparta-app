@@ -218,17 +218,17 @@ export function TrainingHistory() {
                     {MOCK_VOLUME_TREND}%
                   </span>
                 </div>
-                <div className="h-[140px] sm:h-[160px] w-full mt-4">
+                <div className="h-[150px] sm:h-[160px] w-full mt-4 min-h-[150px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={MOCK_VOLUME_DATA} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                      <XAxis dataKey="semana" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
-                      <YAxis domain={["dataMin - 2000", "dataMax + 2000"]} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} width={28} axisLine={false} tickLine={false} tickFormatter={(v) => `${v / 1000}k`} />
+                    <LineChart data={MOCK_VOLUME_DATA} margin={{ top: 8, right: 8, left: 8, bottom: 24 }}>
+                      <XAxis dataKey="semana" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} interval={1} />
+                      <YAxis domain={["dataMin - 2000", "dataMax + 2000"]} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} width={32} axisLine={false} tickLine={false} tickFormatter={(v) => `${v / 1000}k`} />
                       <Tooltip
                         contentStyle={{ backgroundColor: "#1c1c1c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", fontSize: "12px" }}
                         formatter={(value: number) => [`${value.toLocaleString("pt-BR")} kg`, "Volume"]}
                         labelStyle={{ color: "rgba(255,255,255,0.7)" }}
                       />
-                      <Line type="monotone" dataKey="volume" stroke="var(--primary)" strokeWidth={2} dot={{ fill: "var(--primary)", r: 3 }} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="volume" stroke="#3b82f6" strokeWidth={3} dot={{ fill: "#3b82f6", stroke: "#3b82f6", r: 4 }} activeDot={{ r: 5, fill: "#3b82f6", stroke: "#3b82f6" }} strokeLinecap="round" strokeLinejoin="round" />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -239,17 +239,17 @@ export function TrainingHistory() {
                 <h3 className="text-base font-semibold text-white/95 mb-1">Duração</h3>
                 <p className="text-2xl sm:text-3xl font-bold text-white tabular-nums tracking-tight">{MOCK_DURACAO_TOTAL_H}</p>
                 <p className="text-xs text-white/50 mt-2">Média por semana · anterior: {MOCK_DURACAO_ANTERIOR}</p>
-                <div className="h-[140px] sm:h-[160px] w-full mt-4">
+                <div className="h-[150px] sm:h-[160px] w-full mt-4 min-h-[150px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={MOCK_DURACAO_DATA} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-                      <XAxis dataKey="semana" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} />
-                      <YAxis domain={[0, "auto"]} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} width={28} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}h`} />
+                    <LineChart data={MOCK_DURACAO_DATA} margin={{ top: 8, right: 8, left: 8, bottom: 24 }}>
+                      <XAxis dataKey="semana" tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} axisLine={false} tickLine={false} interval={1} />
+                      <YAxis domain={[0, "auto"]} tick={{ fontSize: 10, fill: "rgba(255,255,255,0.4)" }} width={32} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}h`} />
                       <Tooltip
                         contentStyle={{ backgroundColor: "#1c1c1c", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "10px", fontSize: "12px" }}
                         formatter={(value: number) => [`${value.toFixed(1)} h`, "Duração"]}
                         labelStyle={{ color: "rgba(255,255,255,0.7)" }}
                       />
-                      <Line type="monotone" dataKey="horas" stroke="var(--primary)" strokeWidth={2} dot={{ fill: "var(--primary)", r: 3 }} activeDot={{ r: 4 }} />
+                      <Line type="monotone" dataKey="horas" stroke="#3b82f6" strokeWidth={3} dot={{ fill: "#3b82f6", stroke: "#3b82f6", r: 4 }} activeDot={{ r: 5, fill: "#3b82f6", stroke: "#3b82f6" }} strokeLinecap="round" strokeLinejoin="round" />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
